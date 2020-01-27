@@ -19,6 +19,7 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.2.0",
     "loopback-connector-mysql": "^5.4.2",
+    "loopback-ds-timestamp-mixin": "^3.4.1",
     "serve-favicon": "^2.0.1",
     "sql": "^0.78.0",
     "strong-error-handler": "^3.0.0"
