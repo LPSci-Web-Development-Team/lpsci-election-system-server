@@ -19,7 +19,7 @@
       "id": true,
       "defaultFn": "uuid"
     },
-    "partyName": {
+    "name": {
       "type": "string",
       "required": true
     },
