@@ -34,5 +34,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "election": {
+    "dataSource": "db",
+    "public": true
   }
 }
