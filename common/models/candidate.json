@@ -37,7 +37,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "parties": {
+      "type": "hasOne",
+      "model": "party",
+      "foreignKey": "partyId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
