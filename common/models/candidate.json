@@ -1,6 +1,6 @@
 {
-  "name": "party",
-  "plural": "parties",
+  "name": "candidate",
+  "plural": "candidates",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -19,11 +19,19 @@
       "id": true,
       "defaultFn": "uuid"
     },
-    "partyName": {
+    "firstName": {
       "type": "string",
       "required": true
     },
-    "hexColor": {
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "position": {
+      "type": "string",
+      "required": true
+    },
+    "imgUrl": {
       "type": "string",
       "required": true
     }

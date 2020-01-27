@@ -47,5 +47,9 @@
   "party": {
     "dataSource": "db",
     "public": true
+  },
+  "candidate": {
+    "dataSource": "db",
+    "public": true
   }
 }
