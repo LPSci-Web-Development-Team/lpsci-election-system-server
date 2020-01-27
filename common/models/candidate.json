@@ -42,6 +42,12 @@
       "type": "hasOne",
       "model": "party",
       "foreignKey": "candidateId"
+    },
+    "users": {
+      "type": "hasMany",
+      "model": "user",
+      "foreignKey": "candidateId",
+      "through": "vote"
     }
   },
   "acls": [],

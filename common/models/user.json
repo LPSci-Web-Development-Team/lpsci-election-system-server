@@ -41,6 +41,12 @@
       "type": "hasOne",
       "model": "section",
       "foreignKey": "userId"
+    },
+    "candidates": {
+      "type": "hasMany",
+      "model": "candidate",
+      "foreignKey": "userId",
+      "through": "vote"
     }
   },
   "acls": [],
