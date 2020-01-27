@@ -36,7 +36,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "sections": {
+      "type": "hasOne",
+      "model": "section",
+      "foreignKey": "sectionId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
