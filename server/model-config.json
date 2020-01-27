@@ -68,5 +68,9 @@
   "userAccessToken": {
     "dataSource": "db",
     "public": false
+  },
+  "adminAccessToken": {
+    "dataSource": "db",
+    "public": false
   }
 }

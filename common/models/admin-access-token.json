@@ -1,0 +1,20 @@
+{
+  "name": "adminAccessToken",
+  "plural": "adminAccessTokens",
+  "base": "AccessToken",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "admin": {
+      "type": "belongsTo",
+      "model": "admin",
+      "foreignKey": "adminId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

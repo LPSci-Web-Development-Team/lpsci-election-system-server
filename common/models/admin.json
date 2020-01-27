@@ -28,7 +28,16 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "adminAccessToken",
+      "foreignKey": "adminId",
+      "options": {
+        "disableInclude": true
+      }
+    }
+  },
   "acls": [],
   "methods": {}
 }
