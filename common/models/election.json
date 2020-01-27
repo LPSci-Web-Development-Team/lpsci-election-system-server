@@ -1,5 +1,6 @@
 {
   "name": "election",
+  "plural": "elections",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
