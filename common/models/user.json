@@ -37,6 +37,14 @@
   },
   "validations": [],
   "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "userAccessToken",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
+    },
     "sections": {
       "type": "hasOne",
       "model": "section",

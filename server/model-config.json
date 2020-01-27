@@ -64,5 +64,9 @@
   "admin": {
     "dataSource": "db",
     "public": true
+  },
+  "userAccessToken": {
+    "dataSource": "db",
+    "public": false
   }
 }
