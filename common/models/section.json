@@ -1,6 +1,6 @@
 {
-  "name": "vote",
-  "plural": "votes",
+  "name": "section",
+  "plural": "sections",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -18,6 +18,14 @@
       "type": "string",
       "id": true,
       "defaultFn": "uuid"
+    },
+    "gradeLevel": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

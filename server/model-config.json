@@ -55,5 +55,9 @@
   "vote": {
     "dataSource": "db",
     "public": true
+  },
+  "section": {
+    "dataSource": "db",
+    "public": true
   }
 }
