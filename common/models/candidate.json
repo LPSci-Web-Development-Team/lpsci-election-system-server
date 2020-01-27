@@ -41,7 +41,7 @@
     "parties": {
       "type": "hasOne",
       "model": "party",
-      "foreignKey": "partyId"
+      "foreignKey": "candidateId"
     }
   },
   "acls": [],

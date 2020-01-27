@@ -40,7 +40,7 @@
     "sections": {
       "type": "hasOne",
       "model": "section",
-      "foreignKey": "sectionId"
+      "foreignKey": "userId"
     }
   },
   "acls": [],
