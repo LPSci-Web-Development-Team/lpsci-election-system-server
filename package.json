@@ -1,0 +1,10 @@
+{
+  "name": "lpsci-election-system-server",
+  "version": "1.0.0",
+  "description": "API Server for LPSci Election Management System",
+  "main": "index.js",
+  "repository": "https://github.com/pastelcolors/lpsci-election-system-server.git",
+  "author": "LPSci Web Development Team",
+  "license": "",
+  "private": true
+}
