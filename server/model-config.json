@@ -43,5 +43,9 @@
   "user": {
     "dataSource": "db",
     "public": true
+  },
+  "party": {
+    "dataSource": "db",
+    "public": true
   }
 }

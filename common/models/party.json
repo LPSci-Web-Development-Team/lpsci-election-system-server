@@ -1,14 +1,11 @@
 {
-  "name": "user",
-  "plural": "users",
+  "name": "party",
+  "plural": "parties",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
-  "forceId": false,
-  "restrictResetPasswordTokenScope": true,
-  "emailVerificationRequired": false,
   "mixins": {
     "TimeStamp": {
       "required": false,
@@ -22,15 +19,11 @@
       "id": true,
       "defaultFn": "uuid"
     },
-    "lrn": {
+    "partyName": {
       "type": "string",
       "required": true
     },
-    "firstName": {
-      "type": "string",
-      "required": true
-    },
-    "lastName": {
+    "hexColor": {
       "type": "string",
       "required": true
     }
