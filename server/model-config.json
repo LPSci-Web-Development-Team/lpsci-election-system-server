@@ -41,7 +41,7 @@
     "dataSource": "db",
     "public": true
   },
-  "user": {
+  "voter": {
     "dataSource": "db",
     "public": true
   },

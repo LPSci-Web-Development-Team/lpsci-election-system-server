@@ -22,10 +22,10 @@
   },
   "validations": [],
   "relations": {
-    "user": {
+    "voter": {
       "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "userId"
+      "model": "voter",
+      "foreignKey": "voterId"
     },
     "candidate": {
       "type": "belongsTo",

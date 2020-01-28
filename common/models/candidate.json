@@ -39,13 +39,13 @@
   "validations": [],
   "relations": {
     "parties": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "party",
-      "foreignKey": "candidateId"
+      "foreignKey": "partyId"
     },
-    "users": {
+    "voters": {
       "type": "hasMany",
-      "model": "user",
+      "model": "voter",
       "foreignKey": "candidateId",
       "through": "vote"
     }

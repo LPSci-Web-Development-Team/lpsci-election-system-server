@@ -1,7 +1,7 @@
 {
-  "name": "user",
-  "plural": "users",
+  "name": "voter",
   "base": "User",
+  "plural": "voters",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -40,20 +40,20 @@
     "accessTokens": {
       "type": "hasMany",
       "model": "userAccessToken",
-      "foreignKey": "userId",
+      "foreignKey": "voterId",
       "options": {
         "disableInclude": true
       }
     },
     "sections": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "section",
-      "foreignKey": "userId"
+      "foreignKey": "sectionId"
     },
     "candidates": {
       "type": "hasMany",
       "model": "candidate",
-      "foreignKey": "userId",
+      "foreignKey": "voterId",
       "through": "vote"
     }
   },
