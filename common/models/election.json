@@ -15,7 +15,6 @@
     "state": {
       "type": "string",
       "required": true,
-      "default": "register"
     }
   },
   "validations": [],
