@@ -22,6 +22,10 @@
       "id": true,
       "defaultFn": "uuid"
     },
+    "email": {
+      "type": "string",
+      "defaultFn": ""
+    },
     "lrn": {
       "type": "string",
       "required": true
@@ -39,7 +43,7 @@
   "relations": {
     "accessTokens": {
       "type": "hasMany",
-      "model": "userAccessToken",
+      "model": "voterAccessToken",
       "foreignKey": "voterId",
       "options": {
         "disableInclude": true
