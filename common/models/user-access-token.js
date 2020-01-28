@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = function(Useraccesstoken) {
+module.exports = function (Voteraccesstoken) {
 
 };

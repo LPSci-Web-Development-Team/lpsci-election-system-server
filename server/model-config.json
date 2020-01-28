@@ -65,7 +65,7 @@
     "dataSource": "db",
     "public": true
   },
-  "userAccessToken": {
+  "voterAccessToken": {
     "dataSource": "db",
     "public": false
   },

@@ -1,6 +1,6 @@
 {
-  "name": "userAccessToken",
-  "plural": "userAccessTokens",
+  "name": "voterAccessToken",
+  "plural": "voterAccessTokens",
   "base": "AccessToken",
   "idInjection": true,
   "options": {
@@ -9,10 +9,10 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "user": {
+    "voter": {
       "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "userId"
+      "model": "voter",
+      "foreignKey": "voterId"
     }
   },
   "acls": [],
