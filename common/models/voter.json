@@ -1,7 +1,7 @@
 {
   "name": "voter",
-  "base": "User",
   "plural": "voters",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -37,18 +37,15 @@
     "lastName": {
       "type": "string",
       "required": true
+    },
+    "isAdmin": {
+      "type": "boolean",
+      "required": true,
+      "defaultFn": "false"
     }
   },
   "validations": [],
   "relations": {
-    "accessTokens": {
-      "type": "hasMany",
-      "model": "voterAccessToken",
-      "foreignKey": "voterId",
-      "options": {
-        "disableInclude": true
-      }
-    },
     "sections": {
       "type": "belongsTo",
       "model": "section",
@@ -61,6 +58,13 @@
       "through": "vote"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

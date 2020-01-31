@@ -60,17 +60,5 @@
   "section": {
     "dataSource": "db",
     "public": true
-  },
-  "admin": {
-    "dataSource": "db",
-    "public": true
-  },
-  "voterAccessToken": {
-    "dataSource": "db",
-    "public": false
-  },
-  "adminAccessToken": {
-    "dataSource": "db",
-    "public": false
   }
 }

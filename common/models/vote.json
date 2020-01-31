@@ -25,7 +25,7 @@
     "voter": {
       "type": "belongsTo",
       "model": "voter",
-      "foreignKey": "voterId"
+      "foreignKey": "userId"
     },
     "candidate": {
       "type": "belongsTo",
