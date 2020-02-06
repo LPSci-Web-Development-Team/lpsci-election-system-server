@@ -1,12 +1,12 @@
 'use strict';
 
 const SECTION_GRADE_LEVELS = [
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-  '12',
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
 ];
 
 module.exports = function (Section) {

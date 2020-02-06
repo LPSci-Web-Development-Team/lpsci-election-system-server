@@ -20,7 +20,7 @@
       "defaultFn": "uuid"
     },
     "gradeLevel": {
-      "type": "string",
+      "type": "number",
       "required": true
     },
     "name": {
