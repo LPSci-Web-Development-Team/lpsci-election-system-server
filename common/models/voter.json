@@ -56,6 +56,11 @@
       "model": "candidate",
       "foreignKey": "voterId",
       "through": "vote"
+    },
+    "votes": {
+      "type": "hasMany",
+      "model": "vote",
+      "foreignKey": "voterId"
     }
   },
   "acls": [
@@ -64,6 +69,13 @@
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "ALLOW",
+      "property": "__get__votes"
     }
   ],
   "methods": {}
