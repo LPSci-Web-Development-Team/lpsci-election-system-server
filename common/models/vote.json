@@ -18,6 +18,9 @@
       "type": "string",
       "id": true,
       "defaultFn": "uuid"
+    },
+    "position": {
+      "type": "string"
     }
   },
   "validations": [],
