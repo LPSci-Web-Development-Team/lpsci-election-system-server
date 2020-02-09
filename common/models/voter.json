@@ -76,6 +76,13 @@
       "principalId": "$unauthenticated",
       "permission": "ALLOW",
       "property": "__get__votes"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "ALLOW",
+      "property": "find"
     }
   ],
   "methods": {}
