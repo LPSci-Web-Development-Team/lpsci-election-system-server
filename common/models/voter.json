@@ -20,7 +20,7 @@
     "id": {
       "type": "string",
       "id": true,
-      "defaultFn": "uuid"
+      "defaultFn": "uuidv4"
     },
     "email": {
       "type": "string",
