@@ -6,13 +6,13 @@ const CANDIDATE_POSITIONS = [
   'Secretary',
   'Treasurer',
   'Auditor',
-  'Public Information Officer',
+  'PIO',
   'Peace Officer',
-  'Grade 8 Level Representative',
-  'Grade 9 Level Representative',
-  'Grade 10 Level Representative',
-  'Grade 11 Level Representative',
-  'Grade 12 Level Representative',
+  'Level Rep. (8)',
+  'Level Rep. (9)',
+  'Level Rep. (10)',
+  'Level Rep. (11)',
+  'Level Rep. (12)',
 ];
 
 module.exports = function (Candidate) {
