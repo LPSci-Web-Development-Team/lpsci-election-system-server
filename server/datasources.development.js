@@ -2,13 +2,13 @@
 
 module.exports = {
   db: {
-    host: 'localhost',
+    host: process.env.DB_HOST_DEVELOPMENT,
     port: 3306,
     url: '',
-    database: 'lpsci_election_system',
-    password: 'rootpass',
+    database: process.env.DB_DATABASE_DEVELOPMENT,
+    password: process.env.DB_PASSWORD_DEVELOPMENT,
     name: 'db',
-    user: 'root',
+    user: process.env.DB_USER_DEVELOPMENT,
     connector: 'mysql',
   },
 };
