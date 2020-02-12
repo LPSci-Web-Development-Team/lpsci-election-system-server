@@ -12,6 +12,6 @@ const SECTION_GRADE_LEVELS = [
 module.exports = function (Section) {
   Section.validatesInclusionOf('gradeLevel', {
     in: SECTION_GRADE_LEVELS,
-    message: 'Invalid position for Candidate',
+    message: 'Invalid grade level',
   });
 };
