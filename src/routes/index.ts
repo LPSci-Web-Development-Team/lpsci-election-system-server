@@ -7,6 +7,7 @@ import * as status from 'http-status-codes';
 // ANCHOR Middlewares
 
 // ANCHOR Errors
+import { catchResponseError } from '../utils/catchResponseError';
 
 /* ANCHOR: Router imports --------------------------------------------------- */
 
@@ -15,10 +16,10 @@ const routes: Router[] = [];
 
 /* ANCHOR: Router consolidation --------------------------------------------- */
 export function getRootRouter(): Router {
-  const root = new Router();
+  const root = new Router()
 
-  // Formats errors thrown in the promise chain
-  // TODO Add this .use(catchResponseError);
+    // Formats errors thrown in the promise chain
+    .use(catchResponseError);
 
   // Adds current user to state store
   // TODO Add this .use(setStateUser);
