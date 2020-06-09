@@ -18,6 +18,11 @@ const NAME_VALIDATOR = Joi.string()
   .trim()
   .required();
 
+const MIDDLE_NAME_VALIDATOR = Joi.string()
+  .min(NAME_MIN_CHARACTERS)
+  .max(NAME_MAX_CHARACTERS)
+  .trim();
+
 const EMAIL_VALIDATOR = Joi.string()
   .email()
   .required();
@@ -51,7 +56,7 @@ const DISPLAY_PHOTO_UUID_VALIDATOR = Joi.string()
 export const signUpSchema = Joi.object().keys({
   // Personal
   firstName: NAME_VALIDATOR,
-  middleName: NAME_VALIDATOR,
+  middleName: MIDDLE_NAME_VALIDATOR,
   lastName: NAME_VALIDATOR,
   birthDate: BIRTH_DATE_VALIDATOR,
   sex: SEX_VALIDATOR,
@@ -70,7 +75,7 @@ export const signUpSchema = Joi.object().keys({
 export const updateUserSchema = Joi.object().keys({
   // Personal
   firstName: NAME_VALIDATOR,
-  middleName: NAME_VALIDATOR,
+  middleName: MIDDLE_NAME_VALIDATOR,
   lastName: NAME_VALIDATOR,
   birthDate: BIRTH_DATE_VALIDATOR,
   sex: SEX_VALIDATOR,

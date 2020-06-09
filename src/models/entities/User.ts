@@ -26,8 +26,8 @@ export class User extends TimestampedEntity {
   @Column()
   public firstName!: string;
 
-  @Column()
-  public middleName!: string;
+  @Column({ nullable: true })
+  public middleName?: string;
 
   @Column()
   public lastName!: string;

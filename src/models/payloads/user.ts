@@ -1,3 +1,4 @@
+import { formatDisplayName } from '../../utils/formatDisplayName';
 // ANCHOR Entities
 import { User } from '../entities/User';
 
@@ -21,7 +22,7 @@ export interface IFirebaseUserPayload {
 /* ANCHOR: Sign Up Payload -------------------------------------------------- */
 export interface ISignUpPayload {
   readonly firstName: string;
-  readonly middleName: string;
+  readonly middleName?: string;
   readonly lastName: string;
   readonly email: string;
   readonly password: string;
@@ -38,7 +39,7 @@ export interface ISignUpPayload {
 export interface IFetchUserPayload {
   readonly id: string;
   readonly firstName: string;
-  readonly middleName: string;
+  readonly middleName?: string;
   readonly lastName: string;
   readonly birthDate: Date;
   readonly sex: Sex;
@@ -53,7 +54,7 @@ export interface IFetchUserPayload {
 /* ANCHOR: Update User Payload ---------------------------------------------- */
 export interface IUpdateUserPayload {
   readonly firstName: string;
-  readonly middleName: string;
+  readonly middleName?: string;
   readonly lastName: string;
   readonly email: string;
   readonly birthDate: Date;
@@ -106,3 +107,19 @@ export const userToFetchPayload = (
     phoneNumber,
   };
 };
+
+/**
+ * ANCHOR: User to firebase payload
+ * @param user User entity
+ */
+export const userToFirebasePayload = (
+  user: User,
+): IFirebaseUserPayload => ({
+  displayName: formatDisplayName({
+    firstName: user.firstName,
+    middleName: user.middleName,
+    lastName: user.lastName,
+  }),
+  email: user.email,
+  phoneNumber: user.phoneNumber,
+});
