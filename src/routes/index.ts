@@ -10,9 +10,12 @@ import * as status from 'http-status-codes';
 import { catchResponseError } from '../utils/catchResponseError';
 
 /* ANCHOR: Router imports --------------------------------------------------- */
+import { userRouter } from './user';
 
 /* ANCHOR: List of routers -------------------------------------------------- */
-const routes: Router[] = [];
+const routes: Router[] = [
+  userRouter,
+];
 
 /* ANCHOR: Router consolidation --------------------------------------------- */
 export function getRootRouter(): Router {
