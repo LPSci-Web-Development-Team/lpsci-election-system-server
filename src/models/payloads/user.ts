@@ -1,6 +1,8 @@
-import { formatDisplayName } from '../../utils/formatDisplayName';
 // ANCHOR Entities
 import { User } from '../entities/User';
+
+// ANCHOR Utils
+import { formatDisplayName } from '../../utils/formatDisplayName';
 
 /* ANCHOR: User sex enum ---------------------------------------------------- */
 export enum Sex {
