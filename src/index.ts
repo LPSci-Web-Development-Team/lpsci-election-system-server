@@ -84,7 +84,6 @@ logger.info('Connecting to TypeORM database...');
       process.exit(1);
     });
 })()
-  .then(() => logger.info('You may now interact with the API Server'))
   .catch((error) => logger.error(error));
 
 /* ANCHOR: Setup process error handling logging ----------------------------- */
