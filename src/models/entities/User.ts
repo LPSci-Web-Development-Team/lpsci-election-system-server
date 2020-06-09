@@ -9,11 +9,8 @@ import {
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
 
-/* ANCHOR: User sex enum ---------------------------------------------------- */
-export enum Sex {
-  M = 'male',
-  F = 'female',
-}
+// ANCHOR Payloads
+import { Sex } from '../payloads/user';
 
 /* ANCHOR: User entity ------------------------------------------------------ */
 @Entity()
@@ -60,4 +57,5 @@ export class User extends TimestampedEntity {
   @Index()
   public isAdmin!: boolean;
 
-/* ANCHOR: Relations ------------------------------------------------------ */
+  /* ANCHOR: Relations ------------------------------------------------------ */
+}
