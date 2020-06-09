@@ -72,47 +72,6 @@ userRouter.post(
   },
 );
 
-/* ANCHOR: Update password handler ------------------------------------------ */
-userRouter.post(
-  '/update-password',
-  requireSignIn,
-  setStateValidatedPayload(updatePasswordSchema),
-  async (ctx) => {
-    const { user, payload } = ctx.state;
-    await updatePassword(payload, user);
-    ctx.status = status.OK;
-  },
-);
-
-/* ANCHOR: Get user's provider account -------------------------------------- */
-userRouter.get(
-  '/provider-account',
-  requireSignIn,
-  async (ctx) => {
-    const { user } = ctx.state;
-    const providerAccount = await getUserProviderAccount(user);
-
-    ctx.status = status.OK;
-    ctx.body = providerAccount?.map(providerToFetchPayload);
-  },
-);
-
-
-/* ANCHOR: Check if user is subscribed --------------------------------------- */
-userRouter.get(
-  '/check-subscribed/:providerId',
-  requireSignIn,
-  setStateProviderFromParams('providerId'),
-  async (ctx) => {
-    const { user, provider } = ctx.state;
-
-    const isSubscribed = await userIsSubscribed(user, provider);
-
-    ctx.status = status.OK;
-    ctx.body = isSubscribed;
-  },
-);
-
 /* ANCHOR: Check if user is an admin ----------------------------------------- */
 userRouter.get(
   '/admin',
@@ -149,39 +108,9 @@ displayPhotoRouter.put(
   },
 );
 
-/* ANCHOR: License router --------------------------------------------------- */
-const licenseRouter = new Router({ prefix: '/router' });
-
-/* ANCHOR: Create/Update license information -------------------------------- */
-licenseRouter.put(
-  '/',
-  requireSignIn,
-  setStateValidatedPayload(createUpdateLicenseSchema),
-  async (ctx) => {
-    const { user, payload } = ctx.state;
-    await updateLicense(user, payload);
-    ctx.status = status.OK;
-  },
-);
-
-/* ANCHOR: Delete license information --------------------------------------- */
-licenseRouter.delete(
-  '/',
-  requireSignIn,
-  async (ctx: Context) => {
-    const { user } = ctx.state;
-    await deleteLicense(user);
-    ctx.status = status.NO_CONTENT;
-  },
-);
-
 // ANCHOR Merge sub router for user router
 userRouter.use(
   // Merge display photo router
   displayPhotoRouter.routes(),
   displayPhotoRouter.allowedMethods(),
-
-  // Merge license photo router
-  licenseRouter.routes(),
-  licenseRouter.allowedMethods(),
 );
