@@ -2,13 +2,13 @@
 import { getRepository } from 'typeorm';
 
 // ANCHOR Entities
-import { User } from '../../models/entities/User';
+import { User } from '../../../models/entities/User';
 
 // ANCHOR Payloads
-import { IUpdateDisplayPhotoPayload, userToFirebasePayload } from '../../models/payloads/user';
+import { IUpdateDisplayPhotoPayload, userToFirebasePayload } from '../../../models/payloads/user';
 
 // ANCHOR Utils
-import { firebaseAdmin } from '../../utils/firebaseAdmin';
+import { firebaseAdmin } from '../../../utils/firebaseAdmin';
 
 /**
  * ANCHOR: Update user's display photo
