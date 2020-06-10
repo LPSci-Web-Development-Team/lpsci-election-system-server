@@ -6,13 +6,16 @@ import { Context } from 'koa';
 import Router from 'koa-router';
 
 // ANCHOR Utils
-import { setStateValidatedPayload } from '../../../utils/middlewares/validationMiddlewares';
+import { setStateValidatedPayload } from '../../../utils/middlewares/validation';
 
 // ANCHOR Controllers
 import { deleteDisplayPhoto, updateDisplayPhoto } from '../../../controllers/user/display-photo';
 
-// ANCHOR Schema
+// ANCHOR Schemas
 import { updateDisplayPhotoSchema } from '../../../models/payloads/schema/user';
+
+// ANCHOR Middlewares
+import { requireSignIn } from '../../../utils/middlewares/auth';
 
 /* ANCHOR: Display photo router --------------------------------------------- */
 export const displayPhotoRouter = new Router({ prefix: '/display-photo' });

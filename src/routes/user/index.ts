@@ -6,7 +6,7 @@ import { Context } from 'koa';
 import Router from 'koa-router';
 
 // ANCHOR Utils
-import { setStateValidatedPayload } from '../../utils/middlewares/validationMiddlewares';
+import { setStateValidatedPayload } from '../../utils/middlewares/validation';
 
 // ANCHOR Controllers
 import {
@@ -22,12 +22,16 @@ import { userToFetchPayload } from '../../models/payloads/user';
 // ANCHOR Routes
 import { displayPhotoRouter } from './display-photo';
 
+// ANCHOR Middlewares
+import { requireSignIn, requireAdmin } from '../../utils/middlewares/auth';
+
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const userRouter = new Router({ prefix: '/user' });
 
 /* ANCHOR: Get all users ---------------------------------------------------- */
 userRouter.get(
   '/',
+  requireAdmin,
   async (ctx) => {
     const users = await getUsers();
 
@@ -43,6 +47,7 @@ userRouter.get(
 /* ANCHOR: Get user by email ---------------------------------------------------- */
 userRouter.get(
   '/user/:email',
+  requireAdmin,
   async (ctx) => {
     const { email } = ctx.params;
 
