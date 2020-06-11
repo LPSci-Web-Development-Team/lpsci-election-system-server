@@ -26,6 +26,7 @@ import bodyParser from 'koa-body';
 import helmet from 'koa-helmet';
 import koaLogger from 'koa-logger';
 import { createConnection } from 'typeorm';
+import redis from 'redis';
 
 import cors from '@koa/cors';
 
@@ -63,6 +64,21 @@ server
 
   // Integrate application routes
   .use(rootRouter.routes());
+
+/* ANCHOR: Setup redis server instance ---------------------------------------- */
+logger.info('Setting up Redis server...');
+const redisPort = Number(process.env.REDIS_PORT);
+export const redisClient = redis.createClient(redisPort);
+
+redisClient.on('connect', () => {
+  logger.info(`Redis server listening on port ${redisPort}`);
+});
+
+redisClient.on('error', (error) => {
+  logger.error('An error occurred while trying to initialize the redis server');
+  logger.error(error);
+  process.exit(1);
+});
 
 /* ANCHOR: Initialize TypeORM database connection --------------------------- */
 logger.info('Connecting to TypeORM database...');
