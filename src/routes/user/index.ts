@@ -5,11 +5,25 @@ import * as status from 'http-status-codes';
 import { Context } from 'koa';
 import Router from 'koa-router';
 
-// ANCHOR Errors
-import { NotFoundError } from '../../errors/custom/NotFound';
-
 // ANCHOR Utils
-import { setStateValidatedPayload } from '../../utils/middlewares/validationMiddlewares';
+import { setStateValidatedPayload } from '../../utils/middlewares/validation';
+
+// ANCHOR Controllers
+import {
+  getUsers, getUserByEmail, createUser, updateUser,
+} from '../../controllers/user';
+
+// ANCHOR Schema
+import { signUpSchema, updateUserSchema } from '../../models/payloads/schema/user';
+
+// ANCHOR Payloads
+import { userToFetchPayload } from '../../models/payloads/user';
+
+// ANCHOR Routes
+import { displayPhotoRouter } from './display-photo';
+
+// ANCHOR Middlewares
+import { requireSignIn, requireAdmin } from '../../utils/middlewares/auth';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const userRouter = new Router({ prefix: '/user' });
@@ -17,12 +31,13 @@ export const userRouter = new Router({ prefix: '/user' });
 /* ANCHOR: Get all users ---------------------------------------------------- */
 userRouter.get(
   '/',
+  requireAdmin,
   async (ctx) => {
     const users = await getUsers();
 
     if (users) {
       ctx.status = status.OK;
-      ctx.body = users.map(usersToFetchPayload);
+      ctx.body = users.map(userToFetchPayload);
     } else {
       ctx.status = status.NOT_FOUND;
     }
@@ -32,17 +47,18 @@ userRouter.get(
 /* ANCHOR: Get user by email ---------------------------------------------------- */
 userRouter.get(
   '/user/:email',
+  requireAdmin,
   async (ctx) => {
     const { email } = ctx.params;
 
     const user = await getUserByEmail(email);
 
-    if (!user) {
-      throw new NotFoundError(`User with email of ${email} does not exist.`);
+    if (user) {
+      ctx.status = status.OK;
+      ctx.body = userToFetchPayload(user);
+    } else {
+      ctx.status = status.NOT_FOUND;
     }
-
-    ctx.status = status.OK;
-    ctx.body = usersToFetchPayload(user);
   },
 );
 
@@ -53,6 +69,7 @@ userRouter.post(
   async (ctx: Context) => {
     const { payload } = ctx.state;
     const user = await createUser(payload);
+
     ctx.status = status.CREATED;
     ctx.body = user;
   },
@@ -72,47 +89,6 @@ userRouter.post(
   },
 );
 
-/* ANCHOR: Update password handler ------------------------------------------ */
-userRouter.post(
-  '/update-password',
-  requireSignIn,
-  setStateValidatedPayload(updatePasswordSchema),
-  async (ctx) => {
-    const { user, payload } = ctx.state;
-    await updatePassword(payload, user);
-    ctx.status = status.OK;
-  },
-);
-
-/* ANCHOR: Get user's provider account -------------------------------------- */
-userRouter.get(
-  '/provider-account',
-  requireSignIn,
-  async (ctx) => {
-    const { user } = ctx.state;
-    const providerAccount = await getUserProviderAccount(user);
-
-    ctx.status = status.OK;
-    ctx.body = providerAccount?.map(providerToFetchPayload);
-  },
-);
-
-
-/* ANCHOR: Check if user is subscribed --------------------------------------- */
-userRouter.get(
-  '/check-subscribed/:providerId',
-  requireSignIn,
-  setStateProviderFromParams('providerId'),
-  async (ctx) => {
-    const { user, provider } = ctx.state;
-
-    const isSubscribed = await userIsSubscribed(user, provider);
-
-    ctx.status = status.OK;
-    ctx.body = isSubscribed;
-  },
-);
-
 /* ANCHOR: Check if user is an admin ----------------------------------------- */
 userRouter.get(
   '/admin',
@@ -123,65 +99,9 @@ userRouter.get(
   },
 );
 
-/* ANCHOR: Display photo router --------------------------------------------- */
-const displayPhotoRouter = new Router({ prefix: '/display-photo' });
-
-/* ANCHOR: Delete user display photo ---------------------------------------- */
-displayPhotoRouter.delete(
-  '/',
-  requireSignIn,
-  async (ctx: Context) => {
-    const { user } = ctx.state;
-    await deleteDisplayPhoto(user);
-    ctx.status = status.NO_CONTENT;
-  },
-);
-
-/* ANCHOR: Update user display photo ---------------------------------------- */
-displayPhotoRouter.put(
-  '/',
-  requireSignIn,
-  setStateValidatedPayload(updateDisplayPhotoSchema),
-  async (ctx) => {
-    const { user, payload } = ctx.state;
-    await updateDisplayPhoto(user, payload);
-    ctx.status = status.OK;
-  },
-);
-
-/* ANCHOR: License router --------------------------------------------------- */
-const licenseRouter = new Router({ prefix: '/router' });
-
-/* ANCHOR: Create/Update license information -------------------------------- */
-licenseRouter.put(
-  '/',
-  requireSignIn,
-  setStateValidatedPayload(createUpdateLicenseSchema),
-  async (ctx) => {
-    const { user, payload } = ctx.state;
-    await updateLicense(user, payload);
-    ctx.status = status.OK;
-  },
-);
-
-/* ANCHOR: Delete license information --------------------------------------- */
-licenseRouter.delete(
-  '/',
-  requireSignIn,
-  async (ctx: Context) => {
-    const { user } = ctx.state;
-    await deleteLicense(user);
-    ctx.status = status.NO_CONTENT;
-  },
-);
-
 // ANCHOR Merge sub router for user router
 userRouter.use(
   // Merge display photo router
   displayPhotoRouter.routes(),
   displayPhotoRouter.allowedMethods(),
-
-  // Merge license photo router
-  licenseRouter.routes(),
-  licenseRouter.allowedMethods(),
 );
