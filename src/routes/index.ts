@@ -12,10 +12,12 @@ import { catchResponseError } from '../utils/catchResponseError';
 
 /* ANCHOR: Router imports --------------------------------------------------- */
 import { userRouter } from './user';
+import { studentRouter } from './student';
 
 /* ANCHOR: List of routers -------------------------------------------------- */
 const routes: Router[] = [
   userRouter,
+  studentRouter,
 ];
 
 /* ANCHOR: Router consolidation --------------------------------------------- */

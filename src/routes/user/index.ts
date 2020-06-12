@@ -38,11 +38,11 @@ userRouter.get(
   requireAdmin,
   getCacheAllUser,
   async (ctx) => {
-    const { user } = ctx.state.cache;
+    const { users } = ctx.state.cache;
 
-    if (user) {
+    if (users) {
       ctx.status = status.OK;
-      ctx.body = user;
+      ctx.body = users;
     } else {
       const result = await getUsers();
       const parsedUser = result.map(userToFetchPayload);
@@ -61,7 +61,7 @@ userRouter.get(
 
 /* ANCHOR: Get user by email ---------------------------------------------------- */
 userRouter.get(
-  '/user/:email',
+  '/:email',
   requireAdmin,
   getCacheUser('email'),
   async (ctx) => {
@@ -91,7 +91,7 @@ userRouter.get(
 
 /* ANCHOR: Sign up handler -------------------------------------------------- */
 userRouter.post(
-  '/sign-up',
+  '/',
   setStateValidatedPayload(signUpSchema),
   async (ctx: Context) => {
     const { payload } = ctx.state;
@@ -109,8 +109,8 @@ userRouter.post(
 );
 
 /* ANCHOR: Update user handler ---------------------------------------------- */
-userRouter.post(
-  '/update-user',
+userRouter.put(
+  '/',
   requireSignIn,
   setStateValidatedPayload(updateUserSchema),
   async (ctx) => {
