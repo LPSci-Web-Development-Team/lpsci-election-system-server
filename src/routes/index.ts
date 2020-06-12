@@ -5,6 +5,7 @@ import Router from 'koa-router';
 import * as status from 'http-status-codes';
 
 // ANCHOR Middlewares
+import { setStateUser } from '../utils/middlewares/auth';
 
 // ANCHOR Errors
 import { catchResponseError } from '../utils/catchResponseError';
@@ -22,10 +23,10 @@ export function getRootRouter(): Router {
   const root = new Router()
 
     // Formats errors thrown in the promise chain
-    .use(catchResponseError);
+    .use(catchResponseError)
 
-  // Adds current user to state store
-  // TODO Add this .use(setStateUser);
+    // Adds current user to state store
+    .use(setStateUser);
 
   // NOTE: Root should always return OK for status checks
   root.get('/', (ctx) => {
