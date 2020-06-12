@@ -36,4 +36,5 @@ export class Student extends TimestampedEntity {
   // TODO STUDENT ENTITY
   // Add proper types to section and grade level
   // Add relations
+  // Add load functions for "current*" fields
 }
