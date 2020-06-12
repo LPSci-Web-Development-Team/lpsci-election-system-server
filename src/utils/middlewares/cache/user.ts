@@ -37,7 +37,7 @@ export const getCacheUser = (
 );
 
 /**
- * ANCHOR: Sets a new cache in redis with the user's id as key.
+ * ANCHOR: Sets a new cache in redis with the user:${params} as key.
  * NOTE: Expires in five minutes
  *
  * @param payload Fetched user
@@ -74,7 +74,7 @@ export const getCacheAllUser = (
 };
 
 /**
- * ANCHOR: Sets a new cache in redis with the user's id as key.
+ * ANCHOR: Sets a new cache in redis with the user:all as key.
  * NOTE: Expires in one hour
  *
  * @param payload Fetched user
