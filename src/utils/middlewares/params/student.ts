@@ -1,5 +1,5 @@
 // ANCHOR Controller
-import { getStudentById } from '../../../controllers/student/index';
+import { getStudentById } from '../../../controllers/student';
 
 // ANCHOR Errors
 import { NotFoundError } from '../../../errors/custom/NotFound';

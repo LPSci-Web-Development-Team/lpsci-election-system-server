@@ -66,7 +66,7 @@ export const getCacheAllUser = (
     }
 
     if (result) {
-      ctx.state.cache.user = JSON.parse(result) as IFetchUserPayload[];
+      ctx.state.cache.users = JSON.parse(result) as IFetchUserPayload[];
     }
   });
 
