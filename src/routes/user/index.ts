@@ -24,6 +24,10 @@ import { displayPhotoRouter } from './display-photo';
 
 // ANCHOR Middlewares
 import { requireSignIn, requireAdmin } from '../../utils/middlewares/auth';
+import {
+  setCacheAllUser, getCacheAllUser, getCacheUser, setCacheUser,
+} from '../../utils/middlewares/cache/user';
+
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const userRouter = new Router({ prefix: '/user' });
@@ -32,14 +36,25 @@ export const userRouter = new Router({ prefix: '/user' });
 userRouter.get(
   '/',
   requireAdmin,
+  getCacheAllUser,
   async (ctx) => {
-    const users = await getUsers();
+    const { user } = ctx.state.cache;
 
-    if (users) {
+    if (user) {
       ctx.status = status.OK;
-      ctx.body = users.map(userToFetchPayload);
+      ctx.body = user;
     } else {
-      ctx.status = status.NOT_FOUND;
+      const result = await getUsers();
+      const parsedUser = result.map(userToFetchPayload);
+
+      if (result) {
+        ctx.status = status.OK;
+        ctx.body = parsedUser;
+        // Set cache
+        setCacheAllUser(parsedUser);
+      } else {
+        ctx.status = status.NOT_FOUND;
+      }
     }
   },
 );
@@ -48,16 +63,28 @@ userRouter.get(
 userRouter.get(
   '/user/:email',
   requireAdmin,
+  getCacheUser('email'),
   async (ctx) => {
-    const { email } = ctx.params;
-
-    const user = await getUserByEmail(email);
+    const { user } = ctx.state.cache;
 
     if (user) {
       ctx.status = status.OK;
-      ctx.body = userToFetchPayload(user);
+      ctx.body = user;
     } else {
-      ctx.status = status.NOT_FOUND;
+      const { email } = ctx.params;
+
+      const result = await getUserByEmail(email);
+
+      if (result) {
+        const parsedUser = userToFetchPayload(result);
+
+        ctx.status = status.OK;
+        ctx.body = parsedUser;
+        // Set cache
+        setCacheUser(email, parsedUser);
+      } else {
+        ctx.status = status.NOT_FOUND;
+      }
     }
   },
 );
@@ -72,6 +99,12 @@ userRouter.post(
 
     ctx.status = status.CREATED;
     ctx.body = user;
+
+    // Revalidate cache
+    const result = await getUsers();
+    const parsedUser = result.map(userToFetchPayload);
+
+    setCacheAllUser(parsedUser);
   },
 );
 
@@ -86,6 +119,12 @@ userRouter.post(
 
     ctx.status = status.OK;
     ctx.body = newUser;
+
+    // Revalidate cache
+    const result = await getUsers();
+    const parsedUser = result.map(userToFetchPayload);
+
+    setCacheAllUser(parsedUser);
   },
 );
 
