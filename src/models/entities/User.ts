@@ -4,10 +4,12 @@ import {
   Entity,
   Index,
   PrimaryColumn,
+  OneToOne,
 } from 'typeorm';
 
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
+import { Student } from './Student';
 
 // ANCHOR Payloads
 import { Sex } from '../payloads/user';
@@ -58,4 +60,6 @@ export class User extends TimestampedEntity {
   public isAdmin!: boolean;
 
   /* ANCHOR: Relations ------------------------------------------------------ */
+  @OneToOne(() => Student, (student) => student.user)
+  public student!: Student;
 }
