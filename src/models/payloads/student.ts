@@ -2,7 +2,7 @@
 import { Student } from '../entities/Student';
 
 // ANCHOR Payloads
-import { IFetchUserPayload } from './user';
+import { IFetchUserPayload, userToFetchPayload } from './user';
 
 /* ANCHOR: Sign Up Payload -------------------------------------------------- */
 export interface ICreateStudentPayload {
@@ -50,6 +50,6 @@ export const studentToFetchPayload = (
     currentGradeLevel,
     currentSection,
     isEnrolled,
-    user,
+    user: user && userToFetchPayload(user),
   };
 };
