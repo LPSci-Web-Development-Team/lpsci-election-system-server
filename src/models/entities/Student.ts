@@ -30,7 +30,9 @@ export class Student extends TimestampedEntity {
   public currentAdviser?: string;
 
   /* ANCHOR: Relations ------------------------------------------------------ */
-  @OneToOne(() => User, (user) => user.student)
+  @OneToOne(() => User, (user) => user.student, {
+    eager: true,
+  })
   public user!: User;
 
   // TODO STUDENT ENTITY
