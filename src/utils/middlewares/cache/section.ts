@@ -7,6 +7,7 @@ import { ErrorCode } from '../../../errors';
 
 // ANCHOR Payloads
 import { IFetchSectionPayload } from '../../../models/payloads/section';
+import { IFetchStudentPayload } from '../../../models/payloads/student';
 
 /**
  * ANCHOR: Returns the cached section if there are any.
@@ -83,4 +84,55 @@ export const setCacheAllSection = (
   payload: IFetchSectionPayload[],
 ) => {
   redisClient.setex('section:all', 3600, JSON.stringify(payload));
+};
+
+/**
+ * ANCHOR: Returns the cached students for section
+ * if there are any.
+ *
+ * @param ctx Koa context
+ * @param next Next middlware
+ */
+export const getCacheAllSectionStudents = (
+  id: string,
+) => (
+  function getCache(
+    ctx: any,
+    next: () => Promise<void>,
+  ) {
+    const params = ctx.params[id];
+
+    redisClient.get(`student-state:${params}:students`, (error, result) => {
+      if (error) {
+        throw new CodedError(ErrorCode.BadRequest, error.message);
+      }
+
+      if (result) {
+        ctx.state.cache.sectionStudents = JSON.parse(result) as IFetchStudentPayload[];
+      }
+    });
+
+    return next();
+  }
+);
+
+/**
+ * ANCHOR: Sets a new cache in redis with the
+ * student-state:all:${year} as key.
+ * NOTE: Expires in one hour
+ *
+ * @param payload Fetched students for section
+ */
+export const setCacheAllSectionStudents = (
+  payload: IFetchStudentPayload[],
+  params: string,
+) => {
+  redisClient.setex(
+    // Key
+    `student-state:${params}:students`,
+    // TTL (seconds)
+    3600,
+    // Payload
+    JSON.stringify(payload),
+  );
 };
