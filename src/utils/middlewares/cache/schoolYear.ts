@@ -7,6 +7,7 @@ import { ErrorCode } from '../../../errors';
 
 // ANCHOR Payloads
 import { IFetchSchoolYearPayload } from '../../../models/payloads/schoolYear';
+import { IFetchSectionPayload } from '../../../models/payloads/section';
 
 /**
  * ANCHOR: Returns the cached schoolYear if there are any.
@@ -83,4 +84,56 @@ export const setCacheAllSchoolYear = (
   payload: IFetchSchoolYearPayload[],
 ) => {
   redisClient.setex('school-year:all', 3600, JSON.stringify(payload));
+};
+
+
+/**
+ * ANCHOR: Returns the cached sections for school year
+ * if there are any.
+ *
+ * @param ctx Koa context
+ * @param next Next middlware
+ */
+export const getCacheAllSchoolYearSections = (
+  year: string,
+) => (
+  function getCache(
+    ctx: any,
+    next: () => Promise<void>,
+  ) {
+    const params = ctx.params[year];
+
+    redisClient.get(`school-year:${params}:sections`, (error, result) => {
+      if (error) {
+        throw new CodedError(ErrorCode.BadRequest, error.message);
+      }
+
+      if (result) {
+        ctx.state.cache.schoolYearSections = JSON.parse(result) as IFetchSectionPayload[];
+      }
+    });
+
+    return next();
+  }
+);
+
+/**
+ * ANCHOR: Sets a new cache in redis with the
+ * school-year:all:${year} as key.
+ * NOTE: Expires in one hour
+ *
+ * @param payload Fetched sections for school year
+ */
+export const setCacheAllSchoolYearSections = (
+  payload: IFetchSectionPayload[],
+  params: string,
+) => {
+  redisClient.setex(
+    // Key
+    `school-year:${params}:sections`,
+    // TTL (seconds)
+    3600,
+    // Payload
+    JSON.stringify(payload),
+  );
 };

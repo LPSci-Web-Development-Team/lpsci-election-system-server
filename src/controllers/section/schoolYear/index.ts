@@ -10,7 +10,7 @@ import { SchoolYear } from '../../../models/entities/SchoolYear';
  *
  * @param schoolYear School Year
  */
-export const getAllSections = async (
+export const getAllSectionsForSchoolYear = async (
   schoolYear: SchoolYear,
 ) => (
   getRepository(Section)
