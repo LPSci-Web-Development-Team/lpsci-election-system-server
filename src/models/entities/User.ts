@@ -5,14 +5,16 @@ import {
   Index,
   PrimaryColumn,
   OneToOne,
+  ManyToMany,
 } from 'typeorm';
 
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
 import { Student } from './Student';
+import { StudentState } from './StudentState';
 
 // ANCHOR Payloads
-import { Sex } from '../payloads/user';
+import { ESex } from '../payloads/user';
 
 /* ANCHOR: User entity ------------------------------------------------------ */
 @Entity()
@@ -43,8 +45,8 @@ export class User extends TimestampedEntity {
   @Column()
   public city!: string;
 
-  @Column({ enum: Sex })
-  public sex!: Sex;
+  @Column({ enum: ESex })
+  public sex!: ESex;
 
   @Column()
   public birthDate!: Date;
@@ -62,4 +64,7 @@ export class User extends TimestampedEntity {
   /* ANCHOR: Relations ------------------------------------------------------ */
   @OneToOne(() => Student, (student) => student.user)
   public student!: Student;
+
+  @ManyToMany(() => StudentState, (state) => state.users)
+  public states!: StudentState;
 }

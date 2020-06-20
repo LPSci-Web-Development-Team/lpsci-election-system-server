@@ -3,10 +3,10 @@ import * as status from 'http-status-codes';
 
 // ANCHOR Koa
 import Router from 'koa-router';
-import { setStateStudentFromParams } from '../../utils/middlewares/params/student';
 
 // ANCHOR Utils
 import { setStateValidatedPayload } from '../../utils/middlewares/validation';
+import { setStateStudentFromParams } from '../../utils/middlewares/params/student';
 
 // ANCHOR Controllers
 import {
@@ -18,10 +18,6 @@ import { createUpdateStudentSchema } from '../../models/payloads/schema/student'
 
 // ANCHOR Payloads
 import { studentToFetchPayload } from '../../models/payloads/student';
-
-// ANCHOR Routes
-import { unenrollStudentRouter } from './unenroll';
-import { enrollStudentRouter } from './enroll';
 
 // ANCHOR Middlewares
 import { requireSignIn, requireAdmin } from '../../utils/middlewares/auth';
@@ -39,11 +35,11 @@ studentRouter.get(
   requireAdmin,
   getCacheAllStudent,
   async (ctx) => {
-    const { student } = ctx.state.cache;
+    const { students } = ctx.state.cache;
 
-    if (student) {
+    if (students) {
       ctx.status = status.OK;
-      ctx.body = student;
+      ctx.body = students;
     } else {
       const result = await getAllStudents();
       const parsedStudent = result.map(studentToFetchPayload);
@@ -133,12 +129,6 @@ studentRouter.put(
 );
 
 // ANCHOR Merge sub router for student router
-studentRouter.use(
-  '/:studentId',
-  // Merge enroll student router
-  enrollStudentRouter.routes(),
-  enrollStudentRouter.allowedMethods(),
-  // Merge unenroll student router
-  unenrollStudentRouter.routes(),
-  unenrollStudentRouter.allowedMethods(),
-);
+// studentRouter.use(
+//   '/:studentId',
+// );

@@ -2,7 +2,7 @@
 import * as Joi from '@hapi/joi';
 
 // ANCHOR Payloads
-import { Sex } from '../user';
+import { ESex } from '../user';
 
 /* ANCHOR: Joi validation parameters ---------------------------------------- */
 const NAME_MIN_CHARACTERS = 1;
@@ -41,7 +41,7 @@ const ADDRESS_VALIDATOR = Joi.string()
   .required();
 
 const SEX_VALIDATOR = Joi.string()
-  .valid(...Object.values(Sex))
+  .valid(...Object.values(ESex))
   .required();
 
 const BIRTH_DATE_VALIDATOR = Joi.date()

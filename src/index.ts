@@ -10,8 +10,6 @@
  * And when you touch this source code,
  * leave your signature below to show that you were part of its legacy.
  *
- * @author Adrian Dayrit
- * itsadriandayrit@gmail.com
  * @author Prince Neil Cedrick Castro
  * cedi.castro@gmail.com
  */
