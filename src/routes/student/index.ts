@@ -3,10 +3,10 @@ import * as status from 'http-status-codes';
 
 // ANCHOR Koa
 import Router from 'koa-router';
-import { setStateStudentFromParams } from '../../utils/middlewares/params/student';
 
 // ANCHOR Utils
 import { setStateValidatedPayload } from '../../utils/middlewares/validation';
+import { setStateStudentFromParams } from '../../utils/middlewares/params/student';
 
 // ANCHOR Controllers
 import {

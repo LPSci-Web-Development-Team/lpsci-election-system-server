@@ -6,15 +6,15 @@ import { CodedError } from '../../../errors/custom/CodedError';
 import { ErrorCode } from '../../../errors';
 
 // ANCHOR Payloads
-import { IFetchStudentPayload } from '../../../models/payloads/student';
+import { IFetchStudentStatePayload } from '../../../models/payloads/studentState';
 
 
 /**
- * ANCHOR: Returns the cached student if there are any.
+ * ANCHOR: Returns the cached student state if there are any.
  *
  * @param ctxParamName URL parameter name
  */
-export const getCacheStudent = (
+export const getCacheStudentState = (
   ctxParamName: string,
 ) => (
   function getCache(
@@ -23,13 +23,13 @@ export const getCacheStudent = (
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`student:${params}`, (error, result) => {
+    redisClient.get(`student-state:${params}`, (error, result) => {
       if (error) {
         throw new CodedError(ErrorCode.BadRequest, error.message);
       }
 
       if (result) {
-        ctx.state.cache.student = JSON.parse(result) as IFetchStudentPayload;
+        ctx.state.cache.studentState = JSON.parse(result) as IFetchStudentStatePayload;
       }
     });
 
@@ -39,18 +39,19 @@ export const getCacheStudent = (
 
 
 /**
- * ANCHOR: Sets a new cache in redis with the student:${params} as key.
+ * ANCHOR: Sets a new cache in redis with the
+ * student-state:${params} as key.
  * NOTE: Expires in five minutes
  *
- * @param payload Fetched student
+ * @param payload Fetched student state
  */
-export const setCacheStudent = (
+export const setCacheStudentState = (
   params: string,
-  payload: IFetchStudentPayload,
+  payload: IFetchStudentStatePayload,
 ) => {
   redisClient.setex(
     // Key
-    `student:${params}`,
+    `student-state:${params}`,
     // TTL (seconds)
     300,
     // Payload
@@ -60,22 +61,22 @@ export const setCacheStudent = (
 
 
 /**
- * ANCHOR: Returns the cached student if there are any.
+ * ANCHOR: Returns the cached student states if there are any.
  *
  * @param ctx Koa context
  * @param next Next middlware
  */
-export const getCacheAllStudent = (
+export const getCacheAllStudentState = (
   ctx: any,
   next: () => Promise<void>,
 ) => {
-  redisClient.get('student:all', (error, result) => {
+  redisClient.get('student-state:all', (error, result) => {
     if (error) {
       throw new CodedError(ErrorCode.BadRequest, error.message);
     }
 
     if (result) {
-      ctx.state.cache.students = JSON.parse(result) as IFetchStudentPayload[];
+      ctx.state.cache.studentStates = JSON.parse(result) as IFetchStudentStatePayload[];
     }
   });
 
@@ -90,11 +91,11 @@ export const getCacheAllStudent = (
  * @param payload Fetched student
  */
 export const setCacheAllStudent = (
-  payload: IFetchStudentPayload[],
+  payload: IFetchStudentStatePayload[],
 ) => {
   redisClient.setex(
     // Key
-    'student:all',
+    'student-state:all',
     // TTL (seconds)
     3600,
     // Payload

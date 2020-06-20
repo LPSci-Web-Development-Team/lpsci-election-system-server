@@ -3,7 +3,6 @@ import { getStudentById } from '../../../controllers/student';
 
 // ANCHOR Errors
 import { NotFoundError } from '../../../errors/custom/NotFound';
-import { AuthorizationError } from '../../../errors/custom/AuthorizationError';
 
 /**
  * ANCHOR: Set state student from params middleware:
@@ -26,25 +25,3 @@ export const setStateStudentFromParams = (ctxParamName: string) => (
     return next();
   }
 );
-
-/**
- * ANCHOR: Require student to be enrolled
- * NOTE: Requires student to be in state
- *
- * @param ctx Koa context with state required
- * @param next Next middleware
- */
-export async function requireStudentEnrolled(
-  ctx: any,
-  next: () => Promise<any>,
-) {
-  const { student } = ctx.state;
-
-  if (!student.isEnrolled) {
-    throw new AuthorizationError(
-      'Student is not authorized to perform operations on this',
-    );
-  }
-
-  return next();
-}
