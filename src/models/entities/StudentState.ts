@@ -26,5 +26,5 @@ export class StudentState extends TimestampedEntity {
   /* ANCHOR: Relations ------------------------------------------------------ */
   @ManyToMany(() => User, (user) => user.states)
   @JoinTable()
-  public users!: User;
+  public users!: User[];
 }
