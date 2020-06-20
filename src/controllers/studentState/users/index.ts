@@ -5,7 +5,6 @@ import { getRepository } from 'typeorm';
 import { StudentState } from '../../../models/entities/StudentState';
 
 // ANCHOR Payload
-import { EStudentState } from '../../../models/payloads/studentState';
 import { NotFoundError } from '../../../errors/custom/NotFound';
 import { User } from '../../../models/entities/User';
 

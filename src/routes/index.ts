@@ -3,6 +3,7 @@ import Router from 'koa-router';
 
 // ANCHOR HTTP Codes
 import * as status from 'http-status-codes';
+import { schoolYearRouter } from './schoolYear/index';
 
 // ANCHOR Middlewares
 import { setStateUser } from '../utils/middlewares/auth';
@@ -20,6 +21,7 @@ const routes: Router[] = [
   userRouter,
   studentRouter,
   studentStateRouter,
+  schoolYearRouter,
 ];
 
 /* ANCHOR: Router consolidation --------------------------------------------- */
