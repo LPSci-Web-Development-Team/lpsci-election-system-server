@@ -12,15 +12,15 @@ export enum EStudentState {
 }
 
 export interface ICreateStudentStatePayload {
-  state: EStudentState;
-  schoolYear: string;
+  readonly state: EStudentState;
+  readonly schoolYear: string;
 }
 
 export interface IFetchStudentStatePayload {
-  id: string;
-  state: EStudentState;
-  schoolYear: string;
-  users?: IFetchUserPayload[];
+  readonly id: string;
+  readonly state: EStudentState;
+  readonly schoolYear: string;
+  readonly users?: IFetchUserPayload[];
 }
 
 export const studentStateToFetchPayload = (

@@ -6,9 +6,9 @@ import {
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
 
-/* ANCHOR: Student entity --------------------------------------------------- */
+/* ANCHOR: School Year entity --------------------------------------------------- */
 @Entity()
-export class Student extends TimestampedEntity {
+export class SchoolYear extends TimestampedEntity {
   /* ANCHOR: Fields --------------------------------------------------------- */
   @PrimaryGeneratedColumn('uuid')
   public id!: string;
