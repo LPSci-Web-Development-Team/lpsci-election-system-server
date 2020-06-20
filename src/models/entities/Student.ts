@@ -17,9 +17,6 @@ export class Student extends TimestampedEntity {
   @Column({ unique: true })
   public learnerReferenceNumber!: string;
 
-  @Column()
-  public isEnrolled!: boolean;
-
   @Column({ nullable: true })
   public currentGradeLevel?: string;
 
