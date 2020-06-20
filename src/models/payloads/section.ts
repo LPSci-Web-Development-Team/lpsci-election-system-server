@@ -26,7 +26,7 @@ export interface IFetchSectionPayload {
 
 export const sectionToFetchPayload = (
   section: Section,
-) => {
+): IFetchSectionPayload => {
   const {
     id,
     name,
