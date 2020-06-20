@@ -102,7 +102,7 @@ export const getCacheAllSectionStudents = (
   ) {
     const params = ctx.params[id];
 
-    redisClient.get(`student-state:${params}:students`, (error, result) => {
+    redisClient.get(`section:${params}:students`, (error, result) => {
       if (error) {
         throw new CodedError(ErrorCode.BadRequest, error.message);
       }
@@ -118,7 +118,7 @@ export const getCacheAllSectionStudents = (
 
 /**
  * ANCHOR: Sets a new cache in redis with the
- * student-state:all:${year} as key.
+ * section:${params}:students as key.
  * NOTE: Expires in one hour
  *
  * @param payload Fetched students for section
@@ -129,7 +129,7 @@ export const setCacheAllSectionStudents = (
 ) => {
   redisClient.setex(
     // Key
-    `student-state:${params}:students`,
+    `section:${params}:students`,
     // TTL (seconds)
     3600,
     // Payload

@@ -15,6 +15,7 @@ import { catchResponseError } from '../utils/catchResponseError';
 import { userRouter } from './user';
 import { studentRouter } from './student';
 import { studentStateRouter } from './studentState';
+import { sectionRouter } from './section';
 
 /* ANCHOR: List of routers -------------------------------------------------- */
 const routes: Router[] = [
@@ -22,6 +23,7 @@ const routes: Router[] = [
   studentRouter,
   studentStateRouter,
   schoolYearRouter,
+  sectionRouter,
 ];
 
 /* ANCHOR: Router consolidation --------------------------------------------- */
