@@ -19,10 +19,6 @@ import { createUpdateStudentSchema } from '../../models/payloads/schema/student'
 // ANCHOR Payloads
 import { studentToFetchPayload } from '../../models/payloads/student';
 
-// ANCHOR Routes
-import { unenrollStudentRouter } from './unenroll';
-import { enrollStudentRouter } from './enroll';
-
 // ANCHOR Middlewares
 import { requireSignIn, requireAdmin } from '../../utils/middlewares/auth';
 import {
@@ -133,12 +129,6 @@ studentRouter.put(
 );
 
 // ANCHOR Merge sub router for student router
-studentRouter.use(
-  '/:studentId',
-  // Merge enroll student router
-  enrollStudentRouter.routes(),
-  enrollStudentRouter.allowedMethods(),
-  // Merge unenroll student router
-  unenrollStudentRouter.routes(),
-  unenrollStudentRouter.allowedMethods(),
-);
+// studentRouter.use(
+//   '/:studentId',
+// );

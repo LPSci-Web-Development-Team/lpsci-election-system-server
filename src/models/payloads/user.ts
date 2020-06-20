@@ -5,7 +5,7 @@ import { User } from '../entities/User';
 import { formatDisplayName } from '../../utils/formatDisplayName';
 
 /* ANCHOR: User sex enum ---------------------------------------------------- */
-export enum Sex {
+export enum ESex {
   M = 'male',
   F = 'female',
 }
@@ -34,7 +34,7 @@ export interface ISignUpPayload {
   readonly phoneNumber?: string;
   readonly displayPhotoUuid?: string;
   readonly birthDate: string;
-  readonly sex: Sex;
+  readonly sex: ESex;
 }
 
 /* ANCHOR: Fetch User Payload ----------------------------------------------- */
@@ -44,7 +44,7 @@ export interface IFetchUserPayload {
   readonly middleName?: string;
   readonly lastName: string;
   readonly birthDate: Date;
-  readonly sex: Sex;
+  readonly sex: ESex;
   readonly email: string;
   readonly displayPhotoUuid?: string;
   readonly phoneNumber?: string;
@@ -61,7 +61,7 @@ export interface IUpdateUserPayload {
   readonly email: string;
   readonly birthDate: Date;
   readonly phoneNumber: string;
-  readonly sex: Sex;
+  readonly sex: ESex;
   readonly streetAddress: string;
   readonly barangay: string;
   readonly city: string;

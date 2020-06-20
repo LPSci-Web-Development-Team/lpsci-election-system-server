@@ -16,7 +16,6 @@ export interface IFetchStudentPayload {
   readonly currentAdviser?: string;
   readonly currentGradeLevel?: string;
   readonly currentSection?: string;
-  readonly isEnrolled?: boolean;
   readonly user?: IFetchUserPayload;
 }
 
@@ -39,7 +38,6 @@ export const studentToFetchPayload = (
     currentAdviser,
     currentGradeLevel,
     currentSection,
-    isEnrolled,
     user,
   } = student;
 
@@ -49,7 +47,6 @@ export const studentToFetchPayload = (
     currentAdviser,
     currentGradeLevel,
     currentSection,
-    isEnrolled,
     user: user && userToFetchPayload(user),
   };
 };
