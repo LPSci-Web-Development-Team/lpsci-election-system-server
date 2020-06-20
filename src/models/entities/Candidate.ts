@@ -8,7 +8,7 @@ import { TimestampedEntity } from './common/TimestampedEntity';
 import { Student } from './Student';
 
 // ANCHOR Payloads
-import { EPosition } from '../payloads/candidate';
+import { EPosition, ECandidateState } from '../payloads/candidate';
 
 /* ANCHOR: Student entity --------------------------------------------------- */
 @Entity()
@@ -23,11 +23,16 @@ export class Candidate extends TimestampedEntity {
   @Column()
   public voteCount!: number;
 
-  @Column()
-  public isWinner!: boolean;
+  @Column({
+    enum: ECandidateState,
+    default: ECandidateState.Indeterminate,
+  })
+  public state!: ECandidateState;
 
   /* ANCHOR: Relations ------------------------------------------------------ */
-  @ManyToOne(() => Student, (student) => student.candidates)
+  @ManyToOne(() => Student, (student) => student.candidates, {
+    eager: true,
+  })
   public student!: Student;
 
   // @ManyToOne(() => Party, (party) => party.candidates)

@@ -25,7 +25,7 @@ export interface IFetchStudentStatePayload {
 
 export const studentStateToFetchPayload = (
   studentState: StudentState,
-) => {
+): IFetchStudentStatePayload => {
   const {
     id,
     state,
