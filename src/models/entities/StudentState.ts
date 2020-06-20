@@ -1,5 +1,5 @@
 import {
-  Entity, Column, ManyToMany, JoinTable, PrimaryGeneratedColumn,
+  Entity, Column, ManyToMany, PrimaryGeneratedColumn, JoinTable,
 } from 'typeorm';
 // ANCHOR Typeorm
 
@@ -20,10 +20,11 @@ export class StudentState extends TimestampedEntity {
   @Column({ enum: EStudentState })
   public state!: EStudentState;
 
+  @Column()
+  public schoolYear!: string;
+
   /* ANCHOR: Relations ------------------------------------------------------ */
   @ManyToMany(() => User, (user) => user.states)
   @JoinTable()
   public users!: User;
-
-  // TODO Add School Year Many to Many
 }
