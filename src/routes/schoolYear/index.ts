@@ -20,7 +20,7 @@ import { createUpdateSchoolYearSchema } from '../../models/payloads/schema/schoo
 import { schoolYearToFetchPayload } from '../../models/payloads/schoolYear';
 
 // ANCHOR Middlewares
-import { requireSignIn, requireAdmin } from '../../utils/middlewares/auth';
+import { requireAdmin } from '../../utils/middlewares/auth';
 import {
   setCacheAllSchoolYear, getCacheAllSchoolYear, getCacheSchoolYear, setCacheSchoolYear,
 } from '../../utils/middlewares/cache/schoolYear';
