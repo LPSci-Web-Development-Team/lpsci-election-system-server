@@ -1,5 +1,10 @@
+// ANCHOR Typeorm
 import { getRepository } from 'typeorm';
+
+// ANCHOR Payloads
 import { ICreateStudentPayload } from '../../models/payloads/student';
+
+// ANCHOR Entities
 import { Student } from '../../models/entities/Student';
 import { User } from '../../models/entities/User';
 

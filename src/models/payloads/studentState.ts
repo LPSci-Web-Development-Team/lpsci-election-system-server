@@ -13,6 +13,7 @@ export enum EStudentState {
 
 export interface ICreateStudentStatePayload {
   state: EStudentState;
+  schoolYear: string;
 }
 
 export interface IFetchStudentStatePayload {
