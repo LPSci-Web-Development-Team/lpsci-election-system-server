@@ -1,7 +1,8 @@
-// ANCHOR Typeorm
 import {
-  Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToMany,
+  Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToMany, OneToMany,
 } from 'typeorm';
+import { Candidate } from './Candidate';
+// ANCHOR Typeorm
 
 // ANCHOR Entities
 import { User } from './User';
@@ -35,6 +36,9 @@ export class Student extends TimestampedEntity {
 
   @ManyToMany(() => Section, (section) => section.students)
   public sections!: Section[];
+
+  @OneToMany(() => Candidate, (candidate) => candidate.student)
+  public candidates!: Candidate[];
 
   // TODO STUDENT ENTITY
   // Add proper types to section and grade level
