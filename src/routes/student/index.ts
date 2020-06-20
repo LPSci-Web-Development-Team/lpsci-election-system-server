@@ -35,11 +35,11 @@ studentRouter.get(
   requireAdmin,
   getCacheAllStudent,
   async (ctx) => {
-    const { student } = ctx.state.cache;
+    const { students } = ctx.state.cache;
 
-    if (student) {
+    if (students) {
       ctx.status = status.OK;
-      ctx.body = student;
+      ctx.body = students;
     } else {
       const result = await getAllStudents();
       const parsedStudent = result.map(studentToFetchPayload);

@@ -15,21 +15,19 @@ import { User } from '../../../models/entities/User';
  * @param studentState Student state
  * @param schoolYear School year
  */
-export const getAllStudentByStudentStateAndYear = async (
-  studentState: EStudentState,
-  schoolYear: string,
+export const getAllStudentForStudentState = async (
+  studentState: StudentState,
 ) => {
   const state = await getRepository(StudentState)
     .findOne({
       where: {
-        state: studentState,
-        schoolYear,
+        id: studentState.id,
       },
       relations: ['users'],
     });
 
   if (!state) {
-    throw new NotFoundError(`${studentState} state with the school year of ${schoolYear} does not exist`);
+    throw new NotFoundError(`Student state with id of ${studentState.id} does not exist`);
   }
 
   return state.users;
