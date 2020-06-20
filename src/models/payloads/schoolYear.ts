@@ -1,5 +1,6 @@
 import { SchoolYear } from '../entities/SchoolYear';
 import { IFetchSectionPayload, sectionToFetchPayload } from './section';
+import { IFetchPartyPayload, partyToFetchPayload } from './party';
 
 export interface ICreateSchoolYearPayload {
   readonly year: string;
@@ -9,7 +10,7 @@ export interface IFetchSchoolYearPayload {
   readonly id: string;
   readonly year: string;
   sections?: IFetchSectionPayload[];
-  // readonly parties?: IFetchPartyPayload[];
+  readonly parties?: IFetchPartyPayload[];
 }
 
 export const schoolYearToFetchPayload = (
@@ -19,13 +20,13 @@ export const schoolYearToFetchPayload = (
     id,
     year,
     sections,
-    // parties,
+    parties,
   } = schoolYear;
 
   return {
     id,
     year,
     sections: sections && sections.map(sectionToFetchPayload),
-    // parties: parties && parties.map(partyToFetchPayload),
+    parties: parties && parties.map(partyToFetchPayload),
   };
 };

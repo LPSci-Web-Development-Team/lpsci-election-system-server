@@ -1,5 +1,6 @@
 import { IFetchStudentPayload, studentToFetchPayload } from './student';
 import { Candidate } from '../entities/Candidate';
+import { Party } from '../entities/Party';
 
 export enum EPosition {
   President = 'president',
@@ -33,7 +34,7 @@ export interface IFetchCandidatePayload {
   readonly voteCount: number;
   readonly state: ECandidateState;
   readonly student: IFetchStudentPayload;
-  // readonly party?: IFetchPartyPayload;
+  readonly party?: Party;
   // readonly votes?: IFetchVotePayload[];
 }
 
@@ -46,7 +47,7 @@ export const candidateToFetchPayload = (
     voteCount,
     state,
     student,
-    // party,
+    party,
     // votes,
   } = candidate;
 
@@ -56,5 +57,6 @@ export const candidateToFetchPayload = (
     voteCount,
     state,
     student: student && studentToFetchPayload(student),
+    party,
   };
 };
