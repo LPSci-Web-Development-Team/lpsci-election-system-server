@@ -1,12 +1,15 @@
 // ANCHOR Typeorm
 import {
-  Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany,
+  Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable,
 } from 'typeorm';
 
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
 import { Student } from './Student';
 import { SchoolYear } from './SchoolYear';
+
+// ANCHOR Payloads
+import { EGrade } from '../payloads/section';
 
 /* ANCHOR: Student entity --------------------------------------------------- */
 @Entity()
@@ -18,8 +21,8 @@ export class Section extends TimestampedEntity {
   @Column()
   public name!: string;
 
-  @Column({})
-  public gradeLevel!: string;
+  @Column({ enum: EGrade })
+  public gradeLevel!: EGrade;
 
   @Column()
   public adviser!: string;
@@ -29,5 +32,6 @@ export class Section extends TimestampedEntity {
   public schoolYear!: SchoolYear;
 
   @ManyToMany(() => Student, (student) => student.sections)
-  public students!: Student;
+  @JoinTable()
+  public students!: Student[];
 }
