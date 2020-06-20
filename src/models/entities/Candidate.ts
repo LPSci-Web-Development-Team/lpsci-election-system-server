@@ -6,6 +6,7 @@ import {
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
 import { Student } from './Student';
+import { Party } from './Party';
 
 // ANCHOR Payloads
 import { EPosition, ECandidateState } from '../payloads/candidate';
@@ -35,9 +36,11 @@ export class Candidate extends TimestampedEntity {
   })
   public student!: Student;
 
-  // @ManyToOne(() => Party, (party) => party.candidates)
-  // public party!: Party;
+  @ManyToOne(() => Party, (party) => party.candidates)
+  public party!: Party;
 
   // @OneToMany(() => Vote, (vote) => vote.candidate)
   // public votes!: Vote[];
+
+  // TODO Add load count
 }
