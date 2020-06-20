@@ -16,6 +16,7 @@ import { userRouter } from './user';
 import { studentRouter } from './student';
 import { studentStateRouter } from './studentState';
 import { sectionRouter } from './section';
+import { candidateRouter } from './candidate';
 
 /* ANCHOR: List of routers -------------------------------------------------- */
 const routes: Router[] = [
@@ -24,6 +25,7 @@ const routes: Router[] = [
   studentStateRouter,
   schoolYearRouter,
   sectionRouter,
+  candidateRouter,
 ];
 
 /* ANCHOR: Router consolidation --------------------------------------------- */
