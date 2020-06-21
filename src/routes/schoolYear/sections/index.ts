@@ -27,14 +27,14 @@ schoolYearSectionRouter.get(
   getCacheAllSchoolYearSections('schoolYearId'),
   setStateSchoolYearFromParams('schoolYearId'),
   async (ctx) => {
-    const { sections } = ctx.state.cache;
-    const { schoolYear } = ctx.state;
-    const { schoolYearId } = ctx.params;
+    const { schoolYearSections } = ctx.state.cache;
 
-    if (sections) {
+    if (schoolYearSections) {
       ctx.status = status.OK;
-      ctx.body = sections;
+      ctx.body = schoolYearSections;
     } else {
+      const { schoolYear } = ctx.state;
+
       const result = await getAllSectionsForSchoolYear(schoolYear);
       const parsedSection = result.map(sectionToFetchPayload);
 
@@ -42,6 +42,8 @@ schoolYearSectionRouter.get(
         ctx.status = status.OK;
         ctx.body = parsedSection;
         // Set cache
+        const { schoolYearId } = ctx.params;
+
         setCacheAllSchoolYearSections(parsedSection, schoolYearId);
       } else {
         ctx.status = status.NOT_FOUND;

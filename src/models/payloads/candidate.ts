@@ -35,7 +35,6 @@ export interface IFetchCandidatePayload {
   readonly state: ECandidateState;
   readonly student: IFetchStudentPayload;
   readonly party?: Party;
-  // readonly votes?: IFetchVotePayload[];
 }
 
 export const candidateToFetchPayload = (
@@ -48,7 +47,6 @@ export const candidateToFetchPayload = (
     state,
     student,
     party,
-    // votes,
   } = candidate;
 
   return {

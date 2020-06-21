@@ -25,6 +25,7 @@ import {
 
 // ANCHOR Routes
 import { candidateStudentRouter } from './student';
+import { candidateVoteRouter } from './votes';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const candidateRouter = new Router({ prefix: '/candidate' });
@@ -109,7 +110,10 @@ candidateRouter.delete(
 // ANCHOR Merge sub router for candidate router
 candidateRouter.use(
   '/:candidateId',
-  // Merge display photo router
+  // Merge student router
   candidateStudentRouter.routes(),
   candidateStudentRouter.allowedMethods(),
+  // Merge votes router
+  candidateVoteRouter.routes(),
+  candidateVoteRouter.allowedMethods(),
 );

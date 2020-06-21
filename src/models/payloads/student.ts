@@ -3,19 +3,23 @@ import { Student } from '../entities/Student';
 
 // ANCHOR Payloads
 import { IFetchUserPayload, userToFetchPayload } from './user';
+import { EGrade } from './section';
 
 /* ANCHOR: Sign Up Payload -------------------------------------------------- */
 export interface ICreateStudentPayload {
   readonly learnerReferenceNumber: string;
 }
 
+export interface IStudentCurrentPayload {
+  readonly currentAdviser?: string;
+  readonly currentGradeLevel?: EGrade;
+  readonly currentSection?: string;
+}
+
 /* ANCHOR: Fetch Student Payload ----------------------------------------------- */
-export interface IFetchStudentPayload {
+export interface IFetchStudentPayload extends IStudentCurrentPayload {
   readonly id: string;
   readonly learnerReferenceNumber: string;
-  readonly currentAdviser?: string;
-  readonly currentGradeLevel?: string;
-  readonly currentSection?: string;
   readonly user?: IFetchUserPayload;
 }
 

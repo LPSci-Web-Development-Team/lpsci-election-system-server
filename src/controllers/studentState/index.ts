@@ -14,7 +14,7 @@ export const getAllStudentStates = async () => (
   getRepository(StudentState)
     .find({
       order: {
-        schoolYear: 'ASC',
+        schoolYear: 'DESC',
       },
     })
 );
@@ -31,7 +31,7 @@ export const getAllStudentStatesByYear = async (
         schoolYear,
       },
       order: {
-        schoolYear: 'ASC',
+        schoolYear: 'DESC',
       },
     })
 );
