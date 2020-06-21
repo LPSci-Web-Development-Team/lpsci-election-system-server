@@ -7,6 +7,7 @@ import { ErrorCode } from '../../../errors';
 
 // ANCHOR Payloads
 import { IFetchCandidatePayload } from '../../../models/payloads/candidate';
+import { IFetchVotePayload } from '../../../models/payloads/vote';
 
 /**
  * ANCHOR: Returns the cached candidate if there are any.
@@ -170,4 +171,48 @@ export const setCacheAllCandidateByState = (
   params: string,
 ) => {
   redisClient.setex(`candidate:all:state:${params}`, 3600, JSON.stringify(payload));
+};
+
+
+/**
+ * ANCHOR: Returns the cached candidate if there are any.
+ *
+ * @param ctx Koa context
+ * @param next Next middlware
+ */
+export const getCacheAllCandidateVotes = (
+  ctxParamName: string,
+) => (
+  function getCache(
+    ctx: any,
+    next: () => Promise<void>,
+  ) {
+    const params = ctx.params[ctxParamName];
+
+    redisClient.get(`candidate:${params}:votes`, (error, result) => {
+      if (error) {
+        throw new CodedError(ErrorCode.BadRequest, error.message);
+      }
+
+      if (result) {
+        ctx.state.cache.candidateVotes = JSON.parse(result) as IFetchVotePayload;
+      }
+    });
+
+    return next();
+  }
+);
+
+/**
+ * ANCHOR: Sets a new cache in redis with the
+ * candidate:${params}:votes as key.
+ * NOTE: Expires in one hour
+ *
+ * @param payload Fetched votes
+ */
+export const setCacheAllCandidateVotes = (
+  payload: IFetchVotePayload[],
+  params: string,
+) => {
+  redisClient.setex(`candidate:${params}:votes`, 3600, JSON.stringify(payload));
 };
