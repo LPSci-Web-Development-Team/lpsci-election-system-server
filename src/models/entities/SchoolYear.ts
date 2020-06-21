@@ -6,6 +6,7 @@ import {
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
 import { Section } from './Section';
+import { Party } from './Party';
 
 /* ANCHOR: School Year entity --------------------------------------------------- */
 @Entity()
@@ -21,6 +22,6 @@ export class SchoolYear extends TimestampedEntity {
   @OneToMany(() => Section, (section) => section.schoolYear)
   public sections!: Section[];
 
-  // @OneToMany(() => Party, (party) => party.schoolYear)
-  // public parties!: Party[];
+  @OneToMany(() => Party, (party) => party.schoolYear)
+  public parties!: Party[];
 }

@@ -25,6 +25,9 @@ import {
   setCacheAllSchoolYear, getCacheAllSchoolYear, getCacheSchoolYear, setCacheSchoolYear,
 } from '../../utils/middlewares/cache/schoolYear';
 
+// ANCHOR Routers
+import { schoolYearSectionRouter } from './sections';
+import { schoolYearPartyRouter } from './parties';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const schoolYearRouter = new Router({ prefix: '/school-year' });
@@ -126,4 +129,15 @@ schoolYearRouter.put(
 
     setCacheAllSchoolYear(parsedSchoolYear);
   },
+);
+
+// ANCHOR Merge sub router for school year router
+schoolYearRouter.use(
+  '/:partyId',
+  // Merge section router
+  schoolYearSectionRouter.routes(),
+  schoolYearSectionRouter.allowedMethods(),
+  // Merge party router
+  schoolYearPartyRouter.routes(),
+  schoolYearPartyRouter.allowedMethods(),
 );

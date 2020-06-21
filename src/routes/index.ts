@@ -17,15 +17,17 @@ import { studentRouter } from './student';
 import { studentStateRouter } from './studentState';
 import { sectionRouter } from './section';
 import { candidateRouter } from './candidate';
+import { partyRouter } from './party';
 
 /* ANCHOR: List of routers -------------------------------------------------- */
 const routes: Router[] = [
-  userRouter,
-  studentRouter,
-  studentStateRouter,
+  candidateRouter,
+  partyRouter,
   schoolYearRouter,
   sectionRouter,
-  candidateRouter,
+  studentRouter,
+  studentStateRouter,
+  userRouter,
 ];
 
 /* ANCHOR: Router consolidation --------------------------------------------- */
