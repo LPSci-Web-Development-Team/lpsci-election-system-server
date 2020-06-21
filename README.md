@@ -1,1 +1,1 @@
-# lyon-election-system-server
+# lpsci-election-system-server
