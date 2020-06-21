@@ -14,7 +14,7 @@ export const getAllSchoolYears = async () => (
   getRepository(SchoolYear)
     .find({
       order: {
-        year: 'ASC',
+        year: 'DESC',
       },
     })
 );

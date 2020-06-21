@@ -8,6 +8,18 @@ import { ICreateStudentPayload } from '../../models/payloads/student';
 import { Student } from '../../models/entities/Student';
 import { User } from '../../models/entities/User';
 
+/* ANCHOR: Load student current fields --------------------------------------- */
+export async function loadStudentCurrentFields(
+  student: Student,
+): Promise<Student> {
+  await Promise.all([
+    (await student.loadCurrents()).currentAdviser,
+    (await student.loadCurrents()).currentGradeLevel,
+    (await student.loadCurrents()).currentSection,
+  ]);
+  return student;
+}
+
 /**
  * ANCHOR: Get all students
  */
@@ -27,15 +39,21 @@ export const getAllStudents = async () => (
  */
 export const getStudentById = async (
   id: string,
-) => (
-  getRepository(Student)
+) => {
+  const student = await getRepository(Student)
     .findOne({
       where: {
         id,
       },
       relations: ['user'],
-    })
-);
+    });
+
+  if (student) {
+    await loadStudentCurrentFields(student);
+  }
+
+  return student;
+};
 
 /**
  * ANCHOR: Create a student
