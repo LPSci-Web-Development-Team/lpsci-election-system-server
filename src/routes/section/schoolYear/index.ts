@@ -11,7 +11,7 @@ import { setStateValidatedPayload } from '../../../utils/middlewares/validation'
 
 // ANCHOR Controllers
 import { createSection, getAllSections } from '../../../controllers/section';
-import { getAllSectionsForSchoolYear } from '../../../controllers/section/schoolYear';
+import { getAllSectionsForSchoolYear } from '../../../controllers/schoolYear/sections';
 
 // ANCHOR Schema
 import { createUpdateSectionSchema } from '../../../models/payloads/schema/section';
