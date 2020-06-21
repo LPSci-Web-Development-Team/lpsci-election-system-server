@@ -9,7 +9,7 @@ import { setStatePartyFromParams } from '../../utils/middlewares/params/party';
 
 // ANCHOR Controllers
 import {
-  getAllParties, getPartyById, deleteParty, createParty, updateParty,
+  getAllParties, getPartyById, deleteParty, updateParty,
 } from '../../controllers/party';
 
 // ANCHOR Schema

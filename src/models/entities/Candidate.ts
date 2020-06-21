@@ -1,12 +1,13 @@
 // ANCHOR Typeorm
 import {
-  Entity, PrimaryGeneratedColumn, Column, ManyToOne,
+  Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany,
 } from 'typeorm';
 
 // ANCHOR Entities
 import { TimestampedEntity } from './common/TimestampedEntity';
 import { Student } from './Student';
 import { Party } from './Party';
+import { Vote } from './Vote';
 
 // ANCHOR Payloads
 import { EPosition, ECandidateState } from '../payloads/candidate';
@@ -39,8 +40,8 @@ export class Candidate extends TimestampedEntity {
   @ManyToOne(() => Party, (party) => party.candidates)
   public party!: Party;
 
-  // @OneToMany(() => Vote, (vote) => vote.candidate)
-  // public votes!: Vote[];
+  @OneToMany(() => Vote, (vote) => vote.candidate)
+  public votes!: Vote[];
 
   // TODO Add load count
 }
