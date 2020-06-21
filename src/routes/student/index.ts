@@ -25,6 +25,8 @@ import {
   setCacheAllStudent, getCacheAllStudent, getCacheStudent, setCacheStudent,
 } from '../../utils/middlewares/cache/student';
 
+// ANCHOR Router
+import { studentVoteRouter } from './votes';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const studentRouter = new Router({ prefix: '/student' });
@@ -129,6 +131,9 @@ studentRouter.put(
 );
 
 // ANCHOR Merge sub router for student router
-// studentRouter.use(
-//   '/:studentId',
-// );
+studentRouter.use(
+  '/:studentId',
+  // Merge vote router
+  studentVoteRouter.routes(),
+  studentVoteRouter.allowedMethods(),
+);

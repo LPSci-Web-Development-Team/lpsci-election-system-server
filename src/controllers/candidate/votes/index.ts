@@ -12,7 +12,7 @@ import { NotFoundError } from '../../../errors/custom/NotFound';
  *
  * @param candidate Candidate
  */
-export const getAllSectionsForCandidate = async (
+export const getAllVotesForCandidate = async (
   { id }: Candidate,
 ) => {
   const candidate = await getRepository(Candidate)

@@ -27,14 +27,14 @@ schoolYearPartyRouter.get(
   getCacheAllSchoolYearParties('schoolYearId'),
   setStateSchoolYearFromParams('schoolYearId'),
   async (ctx) => {
-    const { parties } = ctx.state.cache;
-    const { schoolYear } = ctx.state;
-    const { schoolYearId } = ctx.params;
+    const { schoolYearParties } = ctx.state.cache;
 
-    if (parties) {
+    if (schoolYearParties) {
       ctx.status = status.OK;
-      ctx.body = parties;
+      ctx.body = schoolYearParties;
     } else {
+      const { schoolYear } = ctx.state;
+
       const result = await getAllPartiesForSchoolYear(schoolYear);
       const parsedParty = result.map(partyToFetchPayload);
 
@@ -42,6 +42,8 @@ schoolYearPartyRouter.get(
         ctx.status = status.OK;
         ctx.body = parsedParty;
         // Set cache
+        const { schoolYearId } = ctx.params;
+
         setCacheAllSchoolYearParties(parsedParty, schoolYearId);
       } else {
         ctx.status = status.NOT_FOUND;
