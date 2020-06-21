@@ -16,9 +16,13 @@ export class Vote extends TimestampedEntity {
   public id!: string;
 
   /* ANCHOR: Relations ------------------------------------------------------ */
-  @ManyToOne(() => Student, (student) => student.votes)
+  @ManyToOne(() => Student, (student) => student.votes, {
+    eager: true,
+  })
   public student!: Student;
 
-  @ManyToOne(() => Candidate, (candidate) => candidate.votes)
+  @ManyToOne(() => Candidate, (candidate) => candidate.votes, {
+    eager: true,
+  })
   public candidate!: Candidate;
 }
