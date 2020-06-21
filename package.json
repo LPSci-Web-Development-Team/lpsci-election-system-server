@@ -1,37 +1,67 @@
 {
   "name": "lpsci-election-system-server",
   "version": "1.0.0",
-  "main": "server/server.js",
-  "engines": {
-    "node": ">=6"
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "start": "node .",
-    "posttest": "npm run lint && npm audit"
-  },
+  "description": "REST API Server for LPSci Systems utilizing Typescript, TypeORM, and Koa",
+  "main": "src/index.ts",
+  "repository": "https://github.com/LPSci-Web-Development-Team/lpsci-election-system-server.git",
+  "author": "LPSci Web Development Team",
+  "license": "MIT",
+  "private": false,
   "dependencies": {
-    "compression": "^1.0.3",
-    "cors": "^2.5.2",
-    "dotenv": "^8.2.0",
-    "helmet": "^3.21.2",
-    "loopback": "^3.22.0",
-    "loopback-boot": "^2.6.5",
-    "loopback-component-explorer": "^6.2.0",
-    "loopback-connector-mysql": "^5.4.2",
-    "loopback-ds-timestamp-mixin": "^3.4.1",
-    "serve-favicon": "^2.0.1",
-    "sql": "^0.78.0",
-    "strong-error-handler": "^3.0.0"
+    "@hapi/joi": "latest",
+    "@koa/cors": "latest",
+    "@types/mocha": "latest",
+    "@types/redis": "^2.8.22",
+    "axios": "latest",
+    "date-fns": "^2.11.1",
+    "dotenv": "latest",
+    "firebase-admin": "latest",
+    "http-status-codes": "latest",
+    "koa": "latest",
+    "koa-body": "^4.1.3",
+    "koa-helmet": "latest",
+    "koa-logger": "latest",
+    "koa-router": "latest",
+    "pg": "latest",
+    "pino": "latest",
+    "redis": "^3.0.2",
+    "reflect-metadata": "latest",
+    "ts-mocha": "latest",
+    "ts-node": "latest",
+    "typeorm": "latest"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-config-loopback": "^8.0.0"
+    "@types/hapi__joi": "latest",
+    "@types/koa": "latest",
+    "@types/koa-bodyparser": "latest",
+    "@types/koa-helmet": "latest",
+    "@types/koa-logger": "latest",
+    "@types/koa-router": "latest",
+    "@types/koa__cors": "latest",
+    "@types/node": "latest",
+    "@types/pino": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "apidoc": "latest",
+    "eslint": "latest",
+    "eslint-config-airbnb-base": "latest",
+    "eslint-import-resolver-node": "latest",
+    "eslint-import-resolver-typescript": "latest",
+    "eslint-plugin-import": "latest",
+    "mocha": "latest",
+    "nodemon": "^2.0.2",
+    "pino-pretty": "latest",
+    "typescript": "latest"
   },
-  "repository": {
-    "type": "",
-    "url": ""
-  },
-  "license": "",
-  "description": "lpsci-election-system-server"
+  "scripts": {
+    "dev": "nodemon",
+    "test": "./node_modules/.bin/ts-mocha test/*.ts",
+    "build": "rm -rf build && tsc --sourceMap -p ./",
+    "start": "node build/src/index.js",
+    "lint": "eslint \"src/**/*.ts\"",
+    "migrate:generate": "yarn run typeorm:cli migration:generate -n $NAME",
+    "migrate": "yarn run typeorm:cli migration:run",
+    "migrate:revert": "yarn run typeorm:cli migration:revert",
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts"
+  }
 }
