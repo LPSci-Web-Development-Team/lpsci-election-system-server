@@ -3,7 +3,7 @@ import {
   Column,
   Entity,
   Index,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   OneToOne,
   ManyToMany,
 } from 'typeorm';
@@ -20,7 +20,7 @@ import { ESex } from '../payloads/user';
 @Entity()
 export class User extends TimestampedEntity {
   /* ANCHOR: Fields --------------------------------------------------------- */
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   public id!: string;
 
   @Column()
