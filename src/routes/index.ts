@@ -7,6 +7,7 @@ import { schoolYearRouter } from './schoolYear/index';
 
 // ANCHOR Middlewares
 import { setStateUser } from '../utils/middlewares/auth';
+import { setCache } from '../utils/middlewares/cache';
 
 // ANCHOR Errors
 import { catchResponseError } from '../utils/catchResponseError';
@@ -36,6 +37,9 @@ export function getRootRouter(): Router {
 
     // Formats errors thrown in the promise chain
     .use(catchResponseError)
+
+    // Sets a blank cache
+    .use(setCache)
 
     // Adds current user to state store
     .use(setStateUser);
