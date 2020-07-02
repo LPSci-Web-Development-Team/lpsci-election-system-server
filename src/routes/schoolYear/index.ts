@@ -92,7 +92,7 @@ schoolYearRouter.get(
 
 /* ANCHOR: Create schoolYear ---------------------------------------------- */
 schoolYearRouter.post(
-  '/:schoolYearId',
+  '/',
   requireAdmin,
   setStateValidatedPayload(createUpdateSchoolYearSchema),
   async (ctx) => {
