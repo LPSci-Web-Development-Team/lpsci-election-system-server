@@ -32,6 +32,8 @@ export const getCacheStudentState = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchStudentStatePayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -86,6 +88,8 @@ export const getCacheAllStudentState = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchStudentStatePayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });
@@ -142,6 +146,8 @@ export const getCacheAllStudentStateByYear = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchStudentStatePayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -202,6 +208,8 @@ export const getCacheAllStudentStateUsers = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchUserPayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });

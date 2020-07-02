@@ -80,6 +80,8 @@ export const getCacheAllSchoolYear = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchSchoolYearPayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });
@@ -116,21 +118,32 @@ export const setCacheAllSchoolYear = (
 export const getCacheAllSchoolYearSections = (
   year: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[year];
 
-    redisClient.get(`school-year:${params}:sections`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheSection(): Promise<IFetchSectionPayload[]> {
+      return new Promise((resolve) => {
+        redisClient.get(`school-year:${params}:sections`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.schoolYearSections = JSON.parse(result) as IFetchSectionPayload[];
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchSectionPayload[]);
+          } else {
+            resolve(undefined);
+          }
+        });
+      });
+    }
+
+    await getCacheSection()
+      .then((data) => {
+        ctx.state.cache.schoolYearSections = data;
+      });
 
     return next();
   }
@@ -168,21 +181,32 @@ export const setCacheAllSchoolYearSections = (
 export const getCacheAllSchoolYearParties = (
   year: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[year];
 
-    redisClient.get(`school-year:${params}:parties`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheParty(): Promise<IFetchPartyPayload[]> {
+      return new Promise((resolve) => {
+        redisClient.get(`school-year:${params}:parties`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.schoolYearParties = JSON.parse(result) as IFetchPartyPayload[];
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchPartyPayload[]);
+          } else {
+            resolve(undefined);
+          }
+        });
+      });
+    }
+
+    await getCacheParty()
+      .then((data) => {
+        ctx.state.cache.schoolYearParties = data;
+      });
 
     return next();
   }

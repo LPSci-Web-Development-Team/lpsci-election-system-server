@@ -32,6 +32,8 @@ export const getCacheParty = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchPartyPayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -79,6 +81,8 @@ export const getCacheAllParty = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchPartyPayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });
@@ -129,6 +133,8 @@ export const getCacheAllPartyCandidates = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchPartyPayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });

@@ -32,6 +32,8 @@ export const getCacheCandidate = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchCandidatePayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -79,6 +81,8 @@ export const getCacheAllCandidate = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchCandidatePayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });
@@ -129,6 +133,8 @@ export const getCacheAllCandidateByPosition = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchCandidatePayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -181,6 +187,8 @@ export const getCacheAllCandidateByState = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchCandidatePayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -234,6 +242,8 @@ export const getCacheAllCandidateVotes = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchVotePayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });

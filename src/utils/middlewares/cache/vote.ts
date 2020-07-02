@@ -31,6 +31,8 @@ export const getCacheVote = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchVotePayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -78,6 +80,8 @@ export const getCacheAllVote = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchVotePayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });

@@ -32,6 +32,8 @@ export const getCacheSection = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchSectionPayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -79,6 +81,8 @@ export const getCacheAllSection = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchSectionPayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });
@@ -129,6 +133,8 @@ export const getCacheAllSectionStudents = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchStudentPayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });

@@ -33,6 +33,8 @@ export const getCacheStudent = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchStudentPayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -88,6 +90,8 @@ export const getCacheAllStudent = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchStudentPayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });
@@ -145,6 +149,8 @@ export const getCacheAllStudentVotes = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchVotePayload[]);
+          } else {
+            resolve(undefined);
           }
         });
       });

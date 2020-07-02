@@ -31,6 +31,8 @@ export const getCacheUser = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchUserPayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
@@ -78,6 +80,8 @@ export const getCacheAllUser = async (
 
         if (result) {
           resolve(JSON.parse(result) as IFetchUserPayload[]);
+        } else {
+          resolve(undefined);
         }
       });
     });
