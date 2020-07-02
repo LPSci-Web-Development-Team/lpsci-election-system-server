@@ -20,7 +20,7 @@ import { candidateToFetchPayload } from '../../models/payloads/candidate';
 // ANCHOR Middlewares
 import { requireAdmin } from '../../utils/middlewares/auth';
 import {
-  setCacheAllCandidate, getCacheAllCandidate, getCacheCandidate, setCacheCandidate,
+  setCacheAllCandidate, setCacheCandidate,
 } from '../../utils/middlewares/cache/candidate';
 
 // ANCHOR Routes
@@ -34,7 +34,7 @@ export const candidateRouter = new Router({ prefix: '/candidate' });
 candidateRouter.get(
   '/',
   requireAdmin,
-  getCacheAllCandidate,
+  // getCacheAllCandidate,
   async (ctx) => {
     const { candidates } = ctx.state.cache;
 
@@ -61,7 +61,7 @@ candidateRouter.get(
 candidateRouter.get(
   '/:candidateId',
   requireAdmin,
-  getCacheCandidate('candidateId'),
+  // getCacheCandidate('candidateId'),
   async (ctx) => {
     const { candidate } = ctx.state.cache;
 

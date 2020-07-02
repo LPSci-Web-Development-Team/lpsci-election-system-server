@@ -22,7 +22,7 @@ import { userToFetchPayload } from '../../../models/payloads/user';
 // ANCHOR Middlewares
 import { requireAdmin } from '../../../utils/middlewares/auth';
 import {
-  getCacheAllStudentStateUsers,
+  // getCacheAllStudentStateUsers,
   setCacheAllStudentStateUsers,
 } from '../../../utils/middlewares/cache/studentState';
 
@@ -33,7 +33,7 @@ export const studentStateUserRouter = new Router({ prefix: '/user' });
 studentStateUserRouter.get(
   '/',
   requireAdmin,
-  getCacheAllStudentStateUsers('studentStateId'),
+  // getCacheAllStudentStateUsers('studentStateId'),
   setStateStudentStateFromParams('studentStateId'),
   async (ctx) => {
     const { studentStateUsers } = ctx.state.cache;

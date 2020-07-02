@@ -17,7 +17,7 @@ import { candidateToFetchPayload } from '../../../models/payloads/candidate';
 import { requireAdmin } from '../../../utils/middlewares/auth';
 import {
   setCacheAllPartyCandidates,
-  getCacheAllPartyCandidates,
+  // getCacheAllPartyCandidates,
 } from '../../../utils/middlewares/cache/party';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
@@ -27,7 +27,7 @@ export const partyCandidateRouter = new Router({ prefix: '/candidates' });
 partyCandidateRouter.get(
   '/',
   requireAdmin,
-  getCacheAllPartyCandidates('partyId'),
+  // getCacheAllPartyCandidates('partyId'),
   setStatePartyFromParams('partyId'),
   async (ctx) => {
     const { partyCandidates } = ctx.state.cache;
