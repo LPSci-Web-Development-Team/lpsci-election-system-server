@@ -17,21 +17,30 @@ import { IFetchCandidatePayload } from '../../../models/payloads/candidate';
 export const getCacheParty = (
   ctxParamName: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`party:${params}`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheVotes(): Promise<IFetchPartyPayload> {
+      return new Promise((resolve) => {
+        redisClient.get(`party:${params}`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.party = JSON.parse(result) as IFetchPartyPayload;
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchPartyPayload);
+          }
+        });
+      });
+    }
+
+    await getCacheVotes()
+      .then((data) => {
+        ctx.state.cache.party = data;
+      });
 
     return next();
   }
@@ -57,19 +66,28 @@ export const setCacheParty = (
  * @param ctx Koa context
  * @param next Next middlware
  */
-export const getCacheAllParty = (
+export const getCacheAllParty = async (
   ctx: any,
   next: () => Promise<void>,
 ) => {
-  redisClient.get('party:all', (error, result) => {
-    if (error) {
-      throw new CodedError(ErrorCode.BadRequest, error.message);
-    }
+  function getCache(): Promise<IFetchPartyPayload[]> {
+    return new Promise((resolve) => {
+      redisClient.get('party:all', (error, result) => {
+        if (error) {
+          throw new CodedError(ErrorCode.BadRequest, error.message);
+        }
 
-    if (result) {
-      ctx.state.cache.parties = JSON.parse(result) as IFetchPartyPayload[];
-    }
-  });
+        if (result) {
+          resolve(JSON.parse(result) as IFetchPartyPayload[]);
+        }
+      });
+    });
+  }
+
+  await getCache()
+    .then((data) => {
+      ctx.state.cache.parties = data;
+    });
 
   return next();
 };
@@ -96,21 +114,30 @@ export const setCacheAllParty = (
 export const getCacheAllPartyCandidates = (
   ctxParamName: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`party:${params}:candidates`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheParties(): Promise<IFetchPartyPayload[]> {
+      return new Promise((resolve) => {
+        redisClient.get(`party:${params}:candidates`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.partyCandidates = JSON.parse(result) as IFetchCandidatePayload;
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchPartyPayload[]);
+          }
+        });
+      });
+    }
+
+    await getCacheParties()
+      .then((data) => {
+        ctx.state.cache.partyCandidates = data;
+      });
 
     return next();
   }

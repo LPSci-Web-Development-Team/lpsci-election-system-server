@@ -6,10 +6,10 @@ import Router from 'koa-router';
 import { studentStateUserRouter } from './users/index';
 import {
   setCacheAllStudentStateByYear,
-  // getCacheAllStudentStateByYear,
-  // getCacheAllStudentState,
+  getCacheAllStudentStateByYear,
+  getCacheAllStudentState,
   setCacheAllStudentState,
-  // getCacheStudentState,
+  getCacheStudentState,
   setCacheStudentState,
 } from '../../utils/middlewares/cache/studentState';
 
@@ -49,7 +49,7 @@ export const studentStateRouter = new Router({ prefix: '/studentState-state' });
 studentStateRouter.get(
   '/',
   requireAdmin,
-  // getCacheAllStudentState,
+  getCacheAllStudentState,
   async (ctx) => {
     const { studentStates } = ctx.state.cache;
 
@@ -78,7 +78,7 @@ studentStateRouter.get(
 studentStateRouter.get(
   '/school-year/:schoolYear',
   requireAdmin,
-  // getCacheAllStudentStateByYear('schoolYear'),
+  getCacheAllStudentStateByYear('schoolYear'),
   async (ctx) => {
     const { studentStatesYear } = ctx.state.cache;
     const { schoolYear } = ctx.params;
@@ -107,7 +107,7 @@ studentStateRouter.get(
 studentStateRouter.get(
   '/:studentStateId',
   requireAdmin,
-  // getCacheStudentState('studentStateId'),
+  getCacheStudentState('studentStateId'),
   async (ctx) => {
     const { studentState } = ctx.state.cache;
 

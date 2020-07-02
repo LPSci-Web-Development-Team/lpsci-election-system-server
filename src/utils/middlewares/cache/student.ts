@@ -18,21 +18,30 @@ import { IFetchVotePayload } from '../../../models/payloads/vote';
 export const getCacheStudent = (
   ctxParamName: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`student:${params}`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheVotes(): Promise<IFetchStudentPayload> {
+      return new Promise((resolve) => {
+        redisClient.get(`student:${params}`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.student = JSON.parse(result) as IFetchStudentPayload;
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchStudentPayload);
+          }
+        });
+      });
+    }
+
+    await getCacheVotes()
+      .then((data) => {
+        ctx.state.cache.student = data;
+      });
 
     return next();
   }
@@ -66,19 +75,28 @@ export const setCacheStudent = (
  * @param ctx Koa context
  * @param next Next middlware
  */
-export const getCacheAllStudent = (
+export const getCacheAllStudent = async (
   ctx: any,
   next: () => Promise<void>,
 ) => {
-  redisClient.get('student:all', (error, result) => {
-    if (error) {
-      throw new CodedError(ErrorCode.BadRequest, error.message);
-    }
+  function getCache(): Promise<IFetchStudentPayload[]> {
+    return new Promise((resolve) => {
+      redisClient.get('student:all', (error, result) => {
+        if (error) {
+          throw new CodedError(ErrorCode.BadRequest, error.message);
+        }
 
-    if (result) {
-      ctx.state.cache.students = JSON.parse(result) as IFetchStudentPayload[];
-    }
-  });
+        if (result) {
+          resolve(JSON.parse(result) as IFetchStudentPayload[]);
+        }
+      });
+    });
+  }
+
+  await getCache()
+    .then((data) => {
+      ctx.state.cache.students = data;
+    });
 
   return next();
 };
@@ -112,21 +130,30 @@ export const setCacheAllStudent = (
 export const getCacheAllStudentVotes = (
   ctxParamName: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`student:${params}:votes`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheVotes(): Promise<IFetchVotePayload[]> {
+      return new Promise((resolve) => {
+        redisClient.get(`student:${params}:votes`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.studentVotes = JSON.parse(result) as IFetchVotePayload;
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchVotePayload[]);
+          }
+        });
+      });
+    }
+
+    await getCacheVotes()
+      .then((data) => {
+        ctx.state.cache.studentVotes = data;
+      });
 
     return next();
   }

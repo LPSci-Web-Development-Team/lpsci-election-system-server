@@ -15,7 +15,7 @@ import { partyToFetchPayload } from '../../../models/payloads/party';
 
 // ANCHOR Middlewares
 import { requireAdmin } from '../../../utils/middlewares/auth';
-import { setCacheAllSchoolYearParties } from '../../../utils/middlewares/cache/schoolYear';
+import { setCacheAllSchoolYearParties, getCacheAllSchoolYearParties } from '../../../utils/middlewares/cache/schoolYear';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const schoolYearPartyRouter = new Router({ prefix: '/parties' });
@@ -24,7 +24,7 @@ export const schoolYearPartyRouter = new Router({ prefix: '/parties' });
 schoolYearPartyRouter.get(
   '/:schoolYearId',
   requireAdmin,
-  // getCacheAllSchoolYearParties('schoolYearId'),
+  getCacheAllSchoolYearParties('schoolYearId'),
   setStateSchoolYearFromParams('schoolYearId'),
   async (ctx) => {
     const { schoolYearParties } = ctx.state.cache;

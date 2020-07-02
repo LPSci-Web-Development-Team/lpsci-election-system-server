@@ -17,21 +17,30 @@ import { IFetchStudentPayload } from '../../../models/payloads/student';
 export const getCacheSection = (
   ctxParamName: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`section:${params}`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheVotes(): Promise<IFetchSectionPayload> {
+      return new Promise((resolve) => {
+        redisClient.get(`section:${params}`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.section = JSON.parse(result) as IFetchSectionPayload;
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchSectionPayload);
+          }
+        });
+      });
+    }
+
+    await getCacheVotes()
+      .then((data) => {
+        ctx.state.cache.section = data;
+      });
 
     return next();
   }
@@ -57,19 +66,28 @@ export const setCacheSection = (
  * @param ctx Koa context
  * @param next Next middlware
  */
-export const getCacheAllSection = (
+export const getCacheAllSection = async (
   ctx: any,
   next: () => Promise<void>,
 ) => {
-  redisClient.get('section:all', (error, result) => {
-    if (error) {
-      throw new CodedError(ErrorCode.BadRequest, error.message);
-    }
+  function getCache(): Promise<IFetchSectionPayload[]> {
+    return new Promise((resolve) => {
+      redisClient.get('section:all', (error, result) => {
+        if (error) {
+          throw new CodedError(ErrorCode.BadRequest, error.message);
+        }
 
-    if (result) {
-      ctx.state.cache.sections = JSON.parse(result) as IFetchSectionPayload[];
-    }
-  });
+        if (result) {
+          resolve(JSON.parse(result) as IFetchSectionPayload[]);
+        }
+      });
+    });
+  }
+
+  await getCache()
+    .then((data) => {
+      ctx.state.cache.sections = data;
+    });
 
   return next();
 };
@@ -96,21 +114,30 @@ export const setCacheAllSection = (
 export const getCacheAllSectionStudents = (
   id: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[id];
 
-    redisClient.get(`section:${params}:students`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheStudents(): Promise<IFetchStudentPayload[]> {
+      return new Promise((resolve) => {
+        redisClient.get(`section:${params}:students`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.sectionStudents = JSON.parse(result) as IFetchStudentPayload[];
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchStudentPayload[]);
+          }
+        });
+      });
+    }
+
+    await getCacheStudents()
+      .then((data) => {
+        ctx.state.cache.partyCandidates = data;
+      });
 
     return next();
   }

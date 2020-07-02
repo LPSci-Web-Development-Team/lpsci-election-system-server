@@ -16,21 +16,30 @@ import { IFetchVotePayload } from '../../../models/payloads/vote';
 export const getCacheVote = (
   ctxParamName: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`vote:${params}`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheVotes(): Promise<IFetchVotePayload> {
+      return new Promise((resolve) => {
+        redisClient.get(`vote:${params}`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.vote = JSON.parse(result) as IFetchVotePayload;
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchVotePayload);
+          }
+        });
+      });
+    }
+
+    await getCacheVotes()
+      .then((data) => {
+        ctx.state.cache.vote = data;
+      });
 
     return next();
   }
@@ -56,19 +65,28 @@ export const setCacheVote = (
  * @param ctx Koa context
  * @param next Next middlware
  */
-export const getCacheAllVote = (
+export const getCacheAllVote = async (
   ctx: any,
   next: () => Promise<void>,
 ) => {
-  redisClient.get('vote:all', (error, result) => {
-    if (error) {
-      throw new CodedError(ErrorCode.BadRequest, error.message);
-    }
+  function getCache(): Promise<IFetchVotePayload[]> {
+    return new Promise((resolve) => {
+      redisClient.get('vote:all', (error, result) => {
+        if (error) {
+          throw new CodedError(ErrorCode.BadRequest, error.message);
+        }
 
-    if (result) {
-      ctx.state.cache.votes = JSON.parse(result) as IFetchVotePayload[];
-    }
-  });
+        if (result) {
+          resolve(JSON.parse(result) as IFetchVotePayload[]);
+        }
+      });
+    });
+  }
+
+  await getCache()
+    .then((data) => {
+      ctx.state.cache.votes = data;
+    });
 
   return next();
 };

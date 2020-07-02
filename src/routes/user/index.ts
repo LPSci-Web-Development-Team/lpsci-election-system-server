@@ -25,7 +25,7 @@ import { displayPhotoRouter } from './display-photo';
 // ANCHOR Middlewares
 import { requireSignIn, requireAdmin } from '../../utils/middlewares/auth';
 import {
-  setCacheAllUser, setCacheUser,
+  setCacheAllUser, setCacheUser, getCacheAllUser, getCacheUser,
 } from '../../utils/middlewares/cache/user';
 
 
@@ -36,7 +36,7 @@ export const userRouter = new Router({ prefix: '/user' });
 userRouter.get(
   '/',
   requireAdmin,
-  // getCacheAllUser,
+  getCacheAllUser,
   async (ctx) => {
     const { users } = ctx.state.cache;
 
@@ -63,7 +63,7 @@ userRouter.get(
 userRouter.get(
   '/:email',
   requireAdmin,
-  // getCacheUser('email'),
+  getCacheUser('email'),
   async (ctx) => {
     const { user } = ctx.state.cache;
 

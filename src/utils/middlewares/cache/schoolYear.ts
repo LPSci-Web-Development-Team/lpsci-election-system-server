@@ -18,21 +18,30 @@ import { IFetchPartyPayload } from '../../../models/payloads/party';
 export const getCacheSchoolYear = (
   ctxParamName: string,
 ) => (
-  function getCache(
+  async function getCache(
     ctx: any,
     next: () => Promise<void>,
   ) {
     const params = ctx.params[ctxParamName];
 
-    redisClient.get(`school-year:${params}`, (error, result) => {
-      if (error) {
-        throw new CodedError(ErrorCode.BadRequest, error.message);
-      }
+    function getCacheById(): Promise<IFetchSchoolYearPayload> {
+      return new Promise((resolve) => {
+        redisClient.get(`school-year:${params}`, (error, result) => {
+          if (error) {
+            throw new CodedError(ErrorCode.BadRequest, error.message);
+          }
 
-      if (result) {
-        ctx.state.cache.schoolYear = JSON.parse(result) as IFetchSchoolYearPayload;
-      }
-    });
+          if (result) {
+            resolve(JSON.parse(result) as IFetchSchoolYearPayload);
+          }
+        });
+      });
+    }
+
+    await getCacheById()
+      .then((data) => {
+        ctx.state.cache.schoolYear = data;
+      });
 
     return next();
   }
@@ -58,19 +67,28 @@ export const setCacheSchoolYear = (
  * @param ctx Koa context
  * @param next Next middlware
  */
-export const getCacheAllSchoolYear = (
+export const getCacheAllSchoolYear = async (
   ctx: any,
   next: () => Promise<void>,
 ) => {
-  redisClient.get('school-year:all', (error, result) => {
-    if (error) {
-      throw new CodedError(ErrorCode.BadRequest, error.message);
-    }
+  function getCache(): Promise<IFetchSchoolYearPayload[]> {
+    return new Promise((resolve) => {
+      redisClient.get('school-year:all', (error, result) => {
+        if (error) {
+          throw new CodedError(ErrorCode.BadRequest, error.message);
+        }
 
-    if (result) {
-      ctx.state.cache.schoolYears = JSON.parse(result) as IFetchSchoolYearPayload[];
-    }
-  });
+        if (result) {
+          resolve(JSON.parse(result) as IFetchSchoolYearPayload[]);
+        }
+      });
+    });
+  }
+
+  await getCache()
+    .then((data) => {
+      ctx.state.cache.schoolYears = data;
+    });
 
   return next();
 };

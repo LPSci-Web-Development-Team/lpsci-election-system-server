@@ -13,7 +13,7 @@ import { voteToFetchPayload } from '../../../models/payloads/vote';
 
 // ANCHOR Middlewares
 import { requireAdmin } from '../../../utils/middlewares/auth';
-import { setCacheAllStudentVotes } from '../../../utils/middlewares/cache/student';
+import { setCacheAllStudentVotes, getCacheAllStudentVotes } from '../../../utils/middlewares/cache/student';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const studentVoteRouter = new Router({ prefix: '/votes' });
@@ -22,7 +22,7 @@ export const studentVoteRouter = new Router({ prefix: '/votes' });
 studentVoteRouter.get(
   '/:studentId',
   requireAdmin,
-  // getCacheAllStudentVotes('studentId'),
+  getCacheAllStudentVotes('studentId'),
   setStateStudentFromParams('studentId'),
   async (ctx) => {
     const { studentVotes } = ctx.state.cache;

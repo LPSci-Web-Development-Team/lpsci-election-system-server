@@ -15,7 +15,7 @@ import { sectionToFetchPayload } from '../../../models/payloads/section';
 
 // ANCHOR Middlewares
 import { requireAdmin } from '../../../utils/middlewares/auth';
-import { setCacheAllSchoolYearSections } from '../../../utils/middlewares/cache/schoolYear';
+import { setCacheAllSchoolYearSections, getCacheAllSchoolYearSections } from '../../../utils/middlewares/cache/schoolYear';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const schoolYearSectionRouter = new Router({ prefix: '/sections' });
@@ -24,7 +24,7 @@ export const schoolYearSectionRouter = new Router({ prefix: '/sections' });
 schoolYearSectionRouter.get(
   '/:schoolYearId',
   requireAdmin,
-  // getCacheAllSchoolYearSections('schoolYearId'),
+  getCacheAllSchoolYearSections('schoolYearId'),
   setStateSchoolYearFromParams('schoolYearId'),
   async (ctx) => {
     const { schoolYearSections } = ctx.state.cache;

@@ -22,7 +22,7 @@ import { schoolYearToFetchPayload } from '../../models/payloads/schoolYear';
 // ANCHOR Middlewares
 import { requireAdmin } from '../../utils/middlewares/auth';
 import {
-  setCacheAllSchoolYear, setCacheSchoolYear,
+  setCacheAllSchoolYear, setCacheSchoolYear, getCacheAllSchoolYear, getCacheSchoolYear,
 } from '../../utils/middlewares/cache/schoolYear';
 
 // ANCHOR Routers
@@ -36,7 +36,7 @@ export const schoolYearRouter = new Router({ prefix: '/school-year' });
 schoolYearRouter.get(
   '/',
   requireAdmin,
-  // getCacheAllSchoolYear,
+  getCacheAllSchoolYear,
   async (ctx) => {
     const { schoolYears } = ctx.state.cache;
 
@@ -63,7 +63,7 @@ schoolYearRouter.get(
 schoolYearRouter.get(
   '/:schoolYearId',
   requireAdmin,
-  // getCacheSchoolYear('schoolYearId'),
+  getCacheSchoolYear('schoolYearId'),
   async (ctx) => {
     const { schoolYear } = ctx.state.cache;
 

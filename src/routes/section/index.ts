@@ -22,7 +22,7 @@ import { sectionToFetchPayload } from '../../models/payloads/section';
 // ANCHOR Middlewares
 import { requireAdmin } from '../../utils/middlewares/auth';
 import {
-  setCacheAllSection, setCacheSection,
+  setCacheAllSection, setCacheSection, getCacheAllSection, getCacheSection,
 } from '../../utils/middlewares/cache/section';
 
 // ANCHOR Routes
@@ -35,7 +35,7 @@ export const sectionRouter = new Router({ prefix: '/section' });
 sectionRouter.get(
   '/',
   requireAdmin,
-  // getCacheAllSection,
+  getCacheAllSection,
   async (ctx) => {
     const { sections } = ctx.state.cache;
 
@@ -62,7 +62,7 @@ sectionRouter.get(
 sectionRouter.get(
   '/:sectionId',
   requireAdmin,
-  // getCacheSection('sectionId'),
+  getCacheSection('sectionId'),
   async (ctx) => {
     const { section } = ctx.state.cache;
 

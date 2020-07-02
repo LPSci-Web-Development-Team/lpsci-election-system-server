@@ -22,7 +22,7 @@ import { partyToFetchPayload } from '../../models/payloads/party';
 import { setStateValidatedPayload } from '../../utils/middlewares/validation';
 import { requireAdmin } from '../../utils/middlewares/auth';
 import {
-  setCacheAllParty, setCacheParty,
+  setCacheAllParty, setCacheParty, getCacheAllParty, getCacheParty,
 } from '../../utils/middlewares/cache/party';
 
 // ANCHOR Routes
@@ -36,7 +36,7 @@ export const partyRouter = new Router({ prefix: '/party' });
 partyRouter.get(
   '/',
   requireAdmin,
-  // getCacheAllParty,
+  getCacheAllParty,
   async (ctx) => {
     const { parties } = ctx.state.cache;
 
@@ -63,7 +63,7 @@ partyRouter.get(
 partyRouter.get(
   '/:partyId',
   requireAdmin,
-  // getCacheParty('partyId'),
+  getCacheParty('partyId'),
   async (ctx) => {
     const { party } = ctx.state.cache;
 
