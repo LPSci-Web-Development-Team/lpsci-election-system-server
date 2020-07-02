@@ -75,6 +75,7 @@ export const createUser = async (
   // ANCHOR Create user for postgre
   const newUser = userRepository
     .create({
+      id: userRecord.uid,
       firstName,
       middleName,
       lastName,

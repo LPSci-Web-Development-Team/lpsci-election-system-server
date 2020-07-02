@@ -3,9 +3,9 @@ import {
   Column,
   Entity,
   Index,
-  PrimaryGeneratedColumn,
   OneToOne,
   ManyToMany,
+  PrimaryColumn,
 } from 'typeorm';
 
 // ANCHOR Entities
@@ -20,7 +20,7 @@ import { ESex } from '../payloads/user';
 @Entity()
 export class User extends TimestampedEntity {
   /* ANCHOR: Fields --------------------------------------------------------- */
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   public id!: string;
 
   @Column()
