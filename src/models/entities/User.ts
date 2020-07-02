@@ -62,9 +62,13 @@ export class User extends TimestampedEntity {
   public isAdmin!: boolean;
 
   /* ANCHOR: Relations ------------------------------------------------------ */
-  @OneToOne(() => Student, (student) => student.user)
+  @OneToOne(() => Student, (student) => student.user, {
+    cascade: true,
+  })
   public student!: Student;
 
-  @ManyToMany(() => StudentState, (state) => state.users)
+  @ManyToMany(() => StudentState, (state) => state.users, {
+    cascade: true,
+  })
   public states!: StudentState;
 }
