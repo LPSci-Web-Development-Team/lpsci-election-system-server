@@ -62,7 +62,6 @@ schoolYearRouter.get(
 /* ANCHOR: Get schoolYear by id ---------------------------------------------------- */
 schoolYearRouter.get(
   '/:schoolYearId',
-  requireAdmin,
   getCacheSchoolYear('schoolYearId'),
   async (ctx) => {
     const { schoolYear } = ctx.state.cache;

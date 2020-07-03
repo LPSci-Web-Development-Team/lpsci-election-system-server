@@ -33,6 +33,8 @@ export const getCacheSchoolYear = (
 
           if (result) {
             resolve(JSON.parse(result) as IFetchSchoolYearPayload);
+          } else {
+            resolve(undefined);
           }
         });
       });
