@@ -91,7 +91,7 @@ voteRouter.post(
     const { candidate, student } = ctx.state;
     const newVote = await createVote(candidate, student);
 
-    ctx.status = status.OK;
+    ctx.status = status.CREATED;
     ctx.body = newVote;
 
     // Revalidate cache

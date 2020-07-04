@@ -98,7 +98,7 @@ schoolYearRouter.post(
     const { payload } = ctx.state;
     const newSchoolYear = await createSchoolYear(payload);
 
-    ctx.status = status.OK;
+    ctx.status = status.CREATED;
     ctx.body = newSchoolYear;
 
     // Revalidate cache

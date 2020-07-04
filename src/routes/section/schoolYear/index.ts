@@ -34,7 +34,7 @@ sectionSchoolYearRouter.post(
     const { payload, schoolYear } = ctx.state;
     const newSection = await createSection(payload, schoolYear);
 
-    ctx.status = status.OK;
+    ctx.status = status.CREATED;
     ctx.body = newSection;
 
     // Revalidate cache

@@ -34,7 +34,7 @@ partySchoolYearRouter.post(
     const { payload, schoolYear } = ctx.state;
     const newParty = await createParty(payload, schoolYear);
 
-    ctx.status = status.OK;
+    ctx.status = status.CREATED;
     ctx.body = newParty;
 
     // Revalidate cache

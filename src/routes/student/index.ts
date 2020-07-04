@@ -98,7 +98,7 @@ studentRouter.post(
     const { user, payload } = ctx.state;
     const newStudent = await createStudent(payload, user);
 
-    ctx.status = status.OK;
+    ctx.status = status.CREATED;
     ctx.body = newStudent;
 
     // Revalidate cache
