@@ -56,7 +56,7 @@ export class Student extends TimestampedEntity {
         where: {
           id: this.id,
         },
-        relations: ['sections', 'section.schoolYear'],
+        relations: ['sections', 'sections.schoolYear'],
       });
 
     // Get school year entity

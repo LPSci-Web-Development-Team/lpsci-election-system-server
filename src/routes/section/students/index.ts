@@ -29,13 +29,13 @@ sectionStudentsRouter.get(
   setStateSectionFromParams('sectionId'),
   async (ctx) => {
     const { sectionStudents } = ctx.state.cache;
-    const { section } = ctx.state;
-    const { sectionId } = ctx.params;
 
     if (sectionStudents) {
       ctx.status = status.OK;
       ctx.body = sectionStudents;
     } else {
+      const { section } = ctx.state;
+
       const result = await getAllStudentForSection(section);
       const parsedSection = result.map(studentToFetchPayload);
 
@@ -43,6 +43,7 @@ sectionStudentsRouter.get(
         ctx.status = status.OK;
         ctx.body = parsedSection;
         // Set cache
+        const { sectionId } = ctx.params;
         setCacheAllSectionStudents(parsedSection, sectionId);
       } else {
         ctx.status = status.NOT_FOUND;

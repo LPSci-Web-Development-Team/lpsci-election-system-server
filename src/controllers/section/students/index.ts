@@ -20,7 +20,12 @@ export const getAllStudentForSection = async (
       where: {
         id,
       },
-      relations: ['students', 'students.user'],
+      join: {
+        alias: 'section',
+        leftJoinAndSelect: {
+          students: 'section.students',
+        },
+      },
     });
 
   if (!section) {

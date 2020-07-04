@@ -142,7 +142,7 @@ export const getCacheAllSectionStudents = (
 
     await getCacheStudents()
       .then((data) => {
-        ctx.state.cache.partyCandidates = data;
+        ctx.state.cache.sectionStudents = data;
       });
 
     return next();
