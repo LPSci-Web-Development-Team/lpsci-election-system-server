@@ -132,7 +132,7 @@ schoolYearRouter.put(
 
 // ANCHOR Merge sub router for school year router
 schoolYearRouter.use(
-  '/:partyId',
+  '/:schoolYearId',
   // Merge section router
   schoolYearSectionRouter.routes(),
   schoolYearSectionRouter.allowedMethods(),

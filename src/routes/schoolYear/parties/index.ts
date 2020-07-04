@@ -22,7 +22,7 @@ export const schoolYearPartyRouter = new Router({ prefix: '/parties' });
 
 /* ANCHOR: Get all parties for school year ---------------------------------------------------- */
 schoolYearPartyRouter.get(
-  '/:schoolYearId',
+  '/',
   requireAdmin,
   getCacheAllSchoolYearParties('schoolYearId'),
   setStateSchoolYearFromParams('schoolYearId'),

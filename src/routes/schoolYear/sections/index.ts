@@ -22,7 +22,7 @@ export const schoolYearSectionRouter = new Router({ prefix: '/sections' });
 
 /* ANCHOR: Get all sections for school year ---------------------------------------------------- */
 schoolYearSectionRouter.get(
-  '/:schoolYearId',
+  '/',
   requireAdmin,
   getCacheAllSchoolYearSections('schoolYearId'),
   setStateSchoolYearFromParams('schoolYearId'),
