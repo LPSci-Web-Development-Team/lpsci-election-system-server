@@ -20,7 +20,7 @@ export const getAllStudentForSection = async (
       where: {
         id,
       },
-      relations: ['students'],
+      relations: ['students', 'students.user'],
     });
 
   if (!section) {

@@ -61,7 +61,6 @@ sectionRouter.get(
 /* ANCHOR: Get section by id ---------------------------------------------------- */
 sectionRouter.get(
   '/:sectionId',
-  requireAdmin,
   getCacheSection('sectionId'),
   async (ctx) => {
     const { section } = ctx.state.cache;
