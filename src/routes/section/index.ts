@@ -27,6 +27,7 @@ import {
 
 // ANCHOR Routes
 import { sectionSchoolYearRouter } from './schoolYear';
+import { sectionStudentsRouter } from './students';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const sectionRouter = new Router({ prefix: '/section' });
@@ -131,7 +132,10 @@ sectionRouter.delete(
 // ANCHOR Merge sub router for section router
 sectionRouter.use(
   '/:sectionId',
-  // Merge display photo router
+  // Merge school year router
   sectionSchoolYearRouter.routes(),
   sectionSchoolYearRouter.allowedMethods(),
+  // Merge student router
+  sectionStudentsRouter.routes(),
+  sectionStudentsRouter.allowedMethods(),
 );
