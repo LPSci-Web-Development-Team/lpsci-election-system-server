@@ -62,7 +62,6 @@ partyRouter.get(
 /* ANCHOR: Get party by id ---------------------------------------------------- */
 partyRouter.get(
   '/:partyId',
-  requireAdmin,
   getCacheParty('partyId'),
   async (ctx) => {
     const { party } = ctx.state.cache;
