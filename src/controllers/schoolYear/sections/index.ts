@@ -27,5 +27,5 @@ export const getAllSectionsForSchoolYear = async (
     throw new NotFoundError(`School year with id of ${id} could not be found`);
   }
 
-  return schoolYear.sections;
+  return schoolYear.sections.sort((a, b) => Number(a.gradeLevel) - Number(b.gradeLevel));
 };
