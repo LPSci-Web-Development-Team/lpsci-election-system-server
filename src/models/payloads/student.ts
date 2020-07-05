@@ -1,5 +1,6 @@
 // ANCHOR Entities
 import { Student } from '../entities/Student';
+import { Section } from '../entities/Section';
 
 // ANCHOR Payloads
 import { IFetchUserPayload, userToFetchPayload } from './user';
@@ -21,6 +22,7 @@ export interface IFetchStudentPayload extends IStudentCurrentPayload {
   readonly id: string;
   readonly learnerReferenceNumber: string;
   readonly user?: IFetchUserPayload;
+  readonly sections?: Section[];
 }
 
 /* ANCHOR: Update Student Payload ---------------------------------------------- */
@@ -43,6 +45,7 @@ export const studentToFetchPayload = (
     currentGradeLevel,
     currentSection,
     user,
+    sections,
   } = student;
 
   return {
@@ -52,5 +55,6 @@ export const studentToFetchPayload = (
     currentGradeLevel,
     currentSection,
     user: user && userToFetchPayload(user),
+    sections: sections && sections,
   };
 };

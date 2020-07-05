@@ -47,6 +47,7 @@ export const getStudentById = async (
       where: {
         id,
       },
+      relations: ['sections', 'sections.schoolYear'],
     });
 
   if (student) {
