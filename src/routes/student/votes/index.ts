@@ -20,7 +20,7 @@ export const studentVoteRouter = new Router({ prefix: '/votes' });
 
 /* ANCHOR: Get all votes for student ---------------------------------------------------- */
 studentVoteRouter.get(
-  '/:studentId',
+  '/',
   requireAdmin,
   getCacheAllStudentVotes('studentId'),
   setStateStudentFromParams('studentId'),
