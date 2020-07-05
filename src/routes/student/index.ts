@@ -7,6 +7,7 @@ import Router from 'koa-router';
 // ANCHOR Utils
 import { setStateValidatedPayload } from '../../utils/middlewares/validation';
 import { setStateStudentFromParams } from '../../utils/middlewares/params/student';
+import { setStateUserFromParams } from '../../utils/middlewares/params/user';
 
 // ANCHOR Controllers
 import {
@@ -61,7 +62,6 @@ studentRouter.get(
 /* ANCHOR: Get student by id ---------------------------------------------------- */
 studentRouter.get(
   '/:studentId',
-  requireAdmin,
   getCacheStudent('studentId'),
   async (ctx) => {
     const { student } = ctx.state.cache;
@@ -91,12 +91,13 @@ studentRouter.get(
 
 /* ANCHOR: Create student ---------------------------------------------- */
 studentRouter.post(
-  '/:studentId',
-  requireSignIn,
+  '/:userId',
+  requireAdmin,
   setStateValidatedPayload(createUpdateStudentSchema),
+  setStateUserFromParams('userId'),
   async (ctx) => {
-    const { user, payload } = ctx.state;
-    const newStudent = await createStudent(payload, user);
+    const { payload, userParam } = ctx.state;
+    const newStudent = await createStudent(payload, userParam);
 
     ctx.status = status.CREATED;
     ctx.body = newStudent;

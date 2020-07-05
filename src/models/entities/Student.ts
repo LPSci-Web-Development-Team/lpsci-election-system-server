@@ -1,6 +1,13 @@
 // ANCHOR Typeorm
 import {
-  Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToMany, OneToMany, getRepository,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  ManyToMany,
+  OneToMany,
+  getRepository,
+  JoinColumn,
 } from 'typeorm';
 
 // ANCHOR Entities
@@ -37,6 +44,7 @@ export class Student extends TimestampedEntity {
   @OneToOne(() => User, (user) => user.student, {
     eager: true,
   })
+  @JoinColumn()
   public user!: User;
 
   @ManyToMany(() => Section, (section) => section.students)

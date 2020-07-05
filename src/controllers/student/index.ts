@@ -23,15 +23,17 @@ export async function loadStudentCurrentFields(
 /**
  * ANCHOR: Get all students
  */
-export const getAllStudents = async () => (
-  getRepository(Student)
-    .find({
-      order: {
-        currentGradeLevel: 'ASC',
-      },
-      relations: ['user'],
-    })
-);
+export const getAllStudents = async () => {
+  const students = await getRepository(Student)
+    .find();
+
+  if (students) {
+    students.map(loadStudentCurrentFields);
+  }
+
+  return students.sort((a, b) => (
+    Number(a.currentGradeLevel) - Number(b.currentGradeLevel)));
+};
 
 /**
  * ANCHOR: Get a student by id
@@ -45,7 +47,6 @@ export const getStudentById = async (
       where: {
         id,
       },
-      relations: ['user'],
     });
 
   if (student) {
