@@ -20,7 +20,7 @@ export const candidateVoteRouter = new Router({ prefix: '/votes' });
 
 /* ANCHOR: Get all votes for candidate ---------------------------------------------------- */
 candidateVoteRouter.get(
-  '/:candidateId',
+  '/',
   requireAdmin,
   getCacheAllCandidateVotes('candidateId'),
   setStateCandidateFromParams('candidateId'),
