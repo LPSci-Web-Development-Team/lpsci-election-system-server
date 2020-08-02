@@ -7,7 +7,12 @@ import { ICreateCandidatePayload } from '../../../models/payloads/candidate';
 // ANCHOR Entities
 import { Candidate } from '../../../models/entities/Candidate';
 import { Student } from '../../../models/entities/Student';
-import { Party } from '../../../models/entities/Party';
+
+// ANCHOR Controllers
+import { getPartyById } from '../../party';
+
+// ANCHOR Error
+import { NotFoundError } from '../../../errors/custom/NotFound';
 
 /**
  * ANCHOR: Create a candidate
@@ -17,9 +22,15 @@ import { Party } from '../../../models/entities/Party';
 export const createCandidate = async (
   payload: ICreateCandidatePayload,
   student: Student,
-  party: Party,
 ) => {
-  const { position } = payload;
+  const { position, partyId } = payload;
+
+
+  const party = await getPartyById(partyId);
+
+  if (!party) {
+    throw new NotFoundError(`Party with id of ${partyId} could not be found`);
+  }
 
   const candidateRepository = getRepository(Candidate);
 
@@ -44,10 +55,15 @@ export const createCandidate = async (
 export const updateCandidate = async (
   payload: ICreateCandidatePayload,
   student: Student,
-  party: Party,
   currentCandidate: Candidate,
 ) => {
-  const { position } = payload;
+  const { position, partyId } = payload;
+
+  const party = await getPartyById(partyId);
+
+  if (!party) {
+    throw new NotFoundError(`Party with id of ${partyId} could not be found`);
+  }
 
   const newCandidate = currentCandidate;
   newCandidate.position = position;

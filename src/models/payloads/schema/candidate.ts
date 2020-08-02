@@ -10,4 +10,7 @@ export const createUpdateCandidateSchema = Joi.object().keys({
     .trim()
     .valid(...Object.values(EPosition))
     .required(),
+  partyId: Joi.string()
+    .trim()
+    .required(),
 });
