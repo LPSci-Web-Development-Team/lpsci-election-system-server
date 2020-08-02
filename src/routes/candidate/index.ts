@@ -60,7 +60,6 @@ candidateRouter.get(
 /* ANCHOR: Get candidate by id ---------------------------------------------------- */
 candidateRouter.get(
   '/:candidateId',
-  requireAdmin,
   getCacheCandidate('candidateId'),
   async (ctx) => {
     const { candidate } = ctx.state.cache;
