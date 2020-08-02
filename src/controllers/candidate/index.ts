@@ -46,6 +46,7 @@ export const getAllCandidatesByPosition = async (
       where: {
         position,
       },
+      relations: ['party'],
     });
 
   return Promise.all(candidates.map(async (candidate) => {
@@ -87,6 +88,7 @@ export const getCandidateById = async (
       where: {
         id,
       },
+      relations: ['party'],
     });
 
   if (candidate) {
