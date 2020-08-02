@@ -17,9 +17,11 @@ import { createUpdateCandidateSchema } from '../../../models/payloads/schema/can
 // ANCHOR Controllers
 import { updateCandidate, createCandidate } from '../../../controllers/candidate/student';
 import { getAllCandidates } from '../../../controllers/candidate';
+import { getPartyById } from '../../../controllers/party/index';
 
 // ANCHOR Payload
 import { candidateToFetchPayload } from '../../../models/payloads/candidate';
+import { NotFoundError } from '../../../errors/custom/NotFound';
 
 /* ANCHOR: Router export ---------------------------------------------------- */
 export const candidateStudentRouter = new Router({ prefix: '/student' });
@@ -32,7 +34,14 @@ candidateStudentRouter.post(
   setStateValidatedPayload(createUpdateCandidateSchema),
   async (ctx) => {
     const { student, payload } = ctx.state;
-    const newCandidate = await createCandidate(payload, student);
+
+    const party = await getPartyById(payload.party);
+
+    if (!party) {
+      throw new NotFoundError(`Party with id of ${payload.party} could not be found`);
+    }
+
+    const newCandidate = await createCandidate(payload, student, party);
 
     ctx.status = status.CREATED;
     ctx.body = newCandidate;
@@ -53,7 +62,14 @@ candidateStudentRouter.put(
   setStateValidatedPayload(createUpdateCandidateSchema),
   async (ctx) => {
     const { candidate, student, payload } = ctx.state;
-    const newCandidate = await updateCandidate(payload, student, candidate);
+
+    const party = await getPartyById(payload.party);
+
+    if (!party) {
+      throw new NotFoundError(`Party with id of ${payload.party} could not be found`);
+    }
+
+    const newCandidate = await updateCandidate(payload, student, party, candidate);
 
     ctx.status = status.OK;
     ctx.body = newCandidate;

@@ -7,6 +7,7 @@ import { ICreateCandidatePayload } from '../../../models/payloads/candidate';
 // ANCHOR Entities
 import { Candidate } from '../../../models/entities/Candidate';
 import { Student } from '../../../models/entities/Student';
+import { Party } from '../../../models/entities/Party';
 
 /**
  * ANCHOR: Create a candidate
@@ -16,6 +17,7 @@ import { Student } from '../../../models/entities/Student';
 export const createCandidate = async (
   payload: ICreateCandidatePayload,
   student: Student,
+  party: Party,
 ) => {
   const { position } = payload;
 
@@ -25,6 +27,7 @@ export const createCandidate = async (
     .create({
       position,
       student,
+      party,
     });
 
   const candidate = await candidateRepository
@@ -41,6 +44,7 @@ export const createCandidate = async (
 export const updateCandidate = async (
   payload: ICreateCandidatePayload,
   student: Student,
+  party: Party,
   currentCandidate: Candidate,
 ) => {
   const { position } = payload;
@@ -48,6 +52,7 @@ export const updateCandidate = async (
   const newCandidate = currentCandidate;
   newCandidate.position = position;
   newCandidate.student = student;
+  newCandidate.party = party;
 
   const candidate = await getRepository(Candidate)
     .save(newCandidate);

@@ -26,6 +26,7 @@ export enum ECandidateState {
 
 export interface ICreateCandidatePayload {
   readonly position: EPosition;
+  readonly party: string;
 }
 
 export interface IFetchCandidatePayload {
